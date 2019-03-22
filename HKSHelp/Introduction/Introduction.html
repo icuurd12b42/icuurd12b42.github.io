@@ -10,7 +10,7 @@
 	<p class="content_p1">When I started with gaming in the early 90's I was a pretty good, my reflexes were above average and I ruled most games I played.</p>
 	<p class="content_p1">Going back into gaming, I found myself lacking the finger flexibility and also the memory to hit the right key at the right time... without hitting something else at the same time.</p>
 	<p class="content_p1">Today is a a glorious day for gaming but for people like me a lot of it is ruined by our disabilities, so I decided to make a program to compensate so I could at least be a little more competitive as opposed to getting slaughtered by them darn kids!</p>
-<img class="content_sepline" src="../images/sepline.png">
+<img class="content_sepline" src="../Images/sepline.png">
 
 
 <H1 class="content_h1" id="HotKeySpeak">Hot Key Speak</h1>
@@ -28,7 +28,7 @@
 	<p class="content_p1">Another problem was that my generic send method was not enough in many cases, I needed to do more, the actions needed to do more, they needed logic to execute, not just sending keystrokes blindly.</p>
 	<p class="content_p1">Another problem was that I needed to batch actions as on numerous occasions I would need to tell the system to do a number of things in one sentence, like reload, switch guns, power shield, reload, switch guns. And doing this with long sentences was impossible, and having to wait for the recognition system to figure things out from the huge list before I issued the next command was problematic..</p>
 	<p class="content_p1">Finally the last problem was that I needed a single program to handle multiple games. I simply could not have a half dozen AutoHotKey Scripts, one for every game, each with their own speech rules and code. Too much of a hassle to start the right one, close it and start another AHK script every time I switched games. Plus if I made the error of leaving another script running it would interfere with the other, specifically on the MS SAPI level.</p>
-<img class="content_sepline" src="../images/sepline.png">
+<img class="content_sepline" src="../Images/sepline.png">
 	
 <H1 class="content_h1" id="Features">Features</h1>
 	<p class="content_p1">After almost a year of writing code and testing concept I finally got something that has all the features that will allow anyone to write Voice Activated Scripts for almost any game</p>
@@ -143,14 +143,14 @@
 	</table>
 	<p class="content_p1">HotKeySpeak's intent with regards to Gaming is NOT to give you an easy way to create cheating code for game, the initial intent of this program was to have a system that would easily allow people to compensate for their disabilities, thought ultimately this system can also be used to improve your gaming performance. Initially, with the system only responding to voice, there would be no way this system would give anyone the upper hand, but since I added the Hot Keys this has changed... On the other hand it can also be used to add features the game developers forgot, like key re-assignment...</p>
 
-<img class="content_sepline" src="../images/sepline.png">
+<img class="content_sepline" src="../Images/sepline.png">
 
 	<H1 class="content_h1" id="AutoHotKey">AutoHotKey</h1>
 	<p class="content_p1">This program was written entirely with AutohotKey, link at the bottom of the page.</p>
 	<p class="content_p1">AutoHotKey is a free to use coding environment specifically designed to control other applications.</p>
 	<p class="content_p1">HotKeySpeak runs AutoHotKey code through JavaScript, with a small variation on the language, the techniques found on the AutoHotKey forum should still apply with slight modifications. You can visit the AutoHotKey Forum, link at the bottom of the page.</p>
 	<p class="content_p1">HotKeySpeak's intent with regards to AutoHotKey is to simplify writing AHK code for games and not to circumvent or denigrate this great tool. At the time most of the code was written, AHK V2 was still in Beta.</p>
-<img class="content_sepline" src="../images/sepline.png">
+<img class="content_sepline" src="../Images/sepline.png">
 
 	<H1 class="content_h1" id="KnownIssues">Known Issues</h1>
 	<p class="content_p1">You do your best but there's always something....</p>
@@ -159,7 +159,7 @@
 	<p class="content_p1">HotKeySpeak stops recognizing voice commands entirely, - Tip, Before starting the game, CTRL + CLICK the application rule in the tree-view and do a test command to make sure the system works beforehand... - Fix, Restart the program. Unplug-reconnect the Mic and restart the program. Run MS SAPI from the options dialog and perform microphone setup.  Make sure you did not disable the speech recognition system, see the options window.</p>
 	<p class="content_p1">Poor recognition, - Tip, run MS SAPI from the options dialog and perform microphone setup and training and ensure the level for the Mic is proper.  If you have 2 microphones, make sure that MS SAPI is not using the wrong one.</p>
 	<p class="content_p1">Actions trigger and I said nothing. - Reason, you may have a noisy setup or you may be playing the game over the speakers and the microphone is picking it up, ambient noise may cause false recognitions for rules using simple one syllable words, you may need to tweak the rule code to bypass the global confidence level, see the HKS.Recognition Example code for overriding confidence level. You may need to use the Recognize When Key is down if your setup is noisy, see the options window.</p>
-<img class="content_sepline" src="../images/sepline.png">
+<img class="content_sepline" src="../Images/sepline.png">
 
 
 	<p class="content_p2"/>

@@ -8,26 +8,26 @@
 	
 	<H1 class="content_h1" id="Command">Edit Command Action Interface</h1>
 	<p class="content_p1">The Edit Command Action Interface allows you to change the Command Name, the Hot Key, the Spoken Sentence and the Code to run when the action is triggered, as well as enabling or disabling the Command Action.</p>
-	<img class="content_screenshot" src="../images/CommandUI.png">
+	<img class="content_screenshot" src="../Images/CommandUI.png">
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="CommandHowToUse">How To Use</h2>
 	<p class="content_p2">A Command Action is triggered by a Hot Key or a Spoken Word or Sentence. </p>
 	<p class="content_p2">When you hit the hot key or speak the words listed here, the code is executed.</p>
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<H2 class="content_h2"id="CommandName">Name</h2>
 	<p class="content_p2">Specify the name for the Command Action as it would appear in the tree-view.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="CommandHotKey">Hot Key</h2>
 	<p class="content_p2">Specify the hot key to that will trigger the Command Action.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/RecordOn.ico"> button on the right to activate the keyboard hot key recorder.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/RecordOn.ico"> button on the right to activate the keyboard hot key recorder.</p>
 	<p class="content_p2">The possible Hot Key Combinations are Listed on the AutoHotKey Help Reference Page <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Hotkeys.htm">Here</a> and <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/KeyList.htm">Here</a>.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="CommandSpokenWords">Spoken Words</h2>
 	<p class="content_p2">Specify what words or sentences will trigger the Command Action.</p>
@@ -35,28 +35,28 @@
 	<p class="content_p2">You may define multiple sentences or words for this action by separating each possible option by the pipe | character, for example <u>Reload|Reload Primary Weapon|Reload Primary</u>.</p>
 	<p class="content_p2">Note that the speed and reliability of the recognition system relies on how you define these spoken commands. It helps to have them easily distinguishable from one another. For Example if you have a Command <u>Fire</u> and you have a similar sounding command like <u>Five</u>, then there is a good chance there will be trouble identifying what has been said between those two choices, resulting in longer processing or error of choice.</p>
 	<p class="content_p2">Another thing to consider is the number of syllables in your sentence or word. Long story short, single syllable words do poorly.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="CommandEnabled">Enabled</h2>
 	<p class="content_p2">Specify if the Command Action is enabled. Disabled Command Actions will not be processed or be added to the live hot key or recognition system, but may still be called by your code (By HKS.Action.Run()).</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2"id="CommandCode">Code</h2>
 	<p class="content_p2">Specifies the code to run when the command action is to be performed. You can call any function or use any variables defined by the code in the Application Interface, or any of the code that was previously ran by items up the context chain.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="CommandOK">OK Button</h2>
 	<p class="content_p2">Applies the changes and closes the dialog box. Some changes may require a restart.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="CommandCancel">Cancel Button</h2>
 	<p class="content_p2">Cancels the changes and closes the dialog box.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<p class="content_p2"/>
