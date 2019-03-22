@@ -1,0 +1,195 @@
+<html>
+	<head>
+	    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">
+		<link rel="stylesheet" type="text/css" href="../styles.css?c=001">
+	</head>
+	<body class="content">
+	
+	<H1 class="content_h1" id="OptionsWindow">Options Window</h1>
+	<p class="content_p1">The Options allow you to set global setting for Hot Key Speak to tailor the experience to your liking. It also allows access to feature that will help in fixing speech recognition issues and access rule development debug features.</p>
+	<img class="content_screenshot" src="../images/OptionsUI.png">
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsHotKeys">HotKeys</h2>
+	<p class="content_p2">This section shows the options related the Keyboard Hot Keys that are defined in application rules.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsEnableHotKeys">Enable Keyboard Hot Keys</h2>
+    <p class="content_p2">This check box enables or disables the Hot Keys sub system, when off all Hot Keys defined in the application rule will be ignored.</p>
+	<p class="content_p2">Sometimes it is desired to not have the Keyboard Hot Keys enabled at run time, especially if you are using Voice Explicitly or when hot keys interfere with some behavior in the application.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsToggleHKWithKey">Toggle With Key (HotKeys System)</h2>
+    <p class="content_p2">This check box enables you to define if a key can toggle the Hot Keys sub system ON or OFF.</p>
+	<p class="content_p2">Sometimes it is desired to pause the Hot Keys sub system temporarily, for example, in a Game that has a text chat system when having the Hot Keys ON would interfere with typing regular sentences.</p>
+	<p class="content_p2">The Key here can be any combination allowed by AutoHotKey.<p>
+	<p class="content_p2">Use the edit box to type the Hot Key you wish to use. Unlike other such Hot Key fields in the Hot Key Speak interface, this edit box does not have a Hot Key recorder.<p>
+	<p class="content_p2">The possible Hot Key Combinations are Listed on the AutoHotKey Help Reference Page <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Hotkeys.htm">Here</a> and <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/KeyList.htm">Here</a>.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2"id="OptionsSpeechRecognition">Speech Recognition</h2>
+	<p class="content_p2">This section shows the options related to the Speech Recognition system.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsEnableSpeechRecognition">Enable Speech Recognition</h2>
+    <p class="content_p2">This check box enables or disables the Speech Recognition sub system, when off all Speech Recognition sentences defined in the application rule will be ignored.</p>
+	<p class="content_p2">Sometimes it is desired to not have the Speech Recognition enabled at run time, especially if you are using Hot Keys Explicitly. Or when your environment is noisy or when you are using the Microphone for other things.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsToggleRecWithKey">Toggle With Key (Speech Recognition System)</h2>
+    <p class="content_p2">This check box enables you to define if a key can toggle the Speech Recognition sub system ON or OFF.</p>
+	<p class="content_p2">Sometimes it is desired to pause the Speech Recognition sub system temporarily, for example, if you are using Discord Voice Chat or you are in a noisy environment and you don't want the system to trigger actions unintentionally.</p>
+	<p class="content_p2">The <u>Hold</u> method described later below can also be used to disable the system temporarily in a more subtle way.</p>
+	<p class="content_p2">The Key here can be any combination allowed by AutoHotKey.<p>
+	<p class="content_p2">Use the edit box to type the Hot Key you wish to use. Unlike other such Hot Key fields in the Hot Key Speak interface, this edit box does not have a Hot Key recorder.<p>
+	<p class="content_p2">The possible Hot Key Combinations are Listed on the AutoHotKey Help Reference Page <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Hotkeys.htm">Here</a> and <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/KeyList.htm">Here</a>.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsRecAsISpeak">Recognize as I Speak</h2>
+	<p class="content_p2">This option is useful if you want the system to execute actions as you speak and continue on speaking.</p>
+	<p class="content_p2">In this mode you can utter a sentence of commands and those will run as soon as the system is loosely satisfied and confident that what it saw in the ongoing analysis matches an action it can trigger before you are done speaking.</p>
+	<p class="content_p2">The result is a faster processing but a smaller degree of accuracy.</p>
+	<p class="content_p2">Note that this mode may fall back to the <u>Recognize When I Stop</u> mode when a sentence only has one command resulting in a slower reaction time for single command sentences. To bypass this annoyance, you may add a stub <u>DoNoting</u> action with a word like <u>Confirm</u> which would force the action to trigger faster... For example, uttering <u>Reload Confirm</u> vs <u>Reload</u> would make the reload action trigger faster</p>
+	<p class="content_p2">Note that you should <u>Train MS SAPI</u> properly for this mode to be more accurate. Without any training the result can be very error prone especially if some actions use words that sound similar to the untrained system, such as Fire vs Five vs Four...<p> 
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsRecWhenIStop">Recognize When I Stop</h2>
+	<p class="content_p2">This option is useful if you want the system be sure of your spoken commands.</p>
+	<p class="content_p2">In this mode the entire sentence uttered will be analyzed when you are done speaking, each action listed will be more strongly discriminated to make sure there is no ambiguity in what you asked.</p>
+	<p class="content_p2">The system will then call, in order, all the command actions it found in your sentence.</p>
+	<p class="content_p2">The result is a slower processing but a larger degree of accuracy.</p>
+	<p class="content_p2">Note that this mode is not the one set by default. I strongly suggest you <u>Train MS SAPI</u> and use <u>Recognize as I Speak</u> as that mode can be very accurate with proper training and the resulting speed of execution much more desired especialy for Gaming.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsRecHoldOnKey">Hold When Key</h2>
+    <p class="content_p2">This check box enables you to define if a key can turn the Speech Recognition sub system ON or OFF either when held down or when not held down.</p>
+	<p class="content_p2">Sometimes it is desired to pause the Speech Recognition sub system temporarily, for example, if you are using Discord Voice Chat and you don't want the system to trigger actions unintentionally.</p>
+	<p class="content_p2">The <u>Hold</u> method is a better solution than the <u>Toggle</u> above when paired with a Voice Chat system as most people have/should setup a Hold To Talk key in their Voice chat system.</p>
+	<p class="content_p2">The Key here can be any SINGLE KEY allowed by AutoHotKey. Because this method is not a HOT KEY based method, you can only have a single key to trigger this mode. Such as <u>m</u>, <u>F1</u> or even the mouse middle button <u>mbutton</u>.<p>
+	<p class="content_p2">Use the edit box to type the SINGLE KEY you wish to use. Unlike other Hot Key fields in the Hot Key Speak interface, this edit box does not have a Hot Key recorder.<p>
+	<p class="content_p2">The possible Keys are Listed on the AutoHotKey Help Reference Page <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Hotkeys.htm">Here</a> and <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/KeyList.htm">Here</a>.</p>
+	<p class="content_p2">Though added with voice chat in mind, the system allows you to specify if the Speech Recognition is turned off when the Key is held down or up. Basically this can be used to define a Recognize-when-Key-is-Down setup, which is useful in a noisy environment.<p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsSpeechRefinements">Speech Refinements</h2>
+	<p class="content_p2">This section allows you to tweak the Speech Recognition accuracy.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsSRIgnoreNoise">Ignore Noise Issues</h2>
+	<p class="content_p2">This check box allows you to tell the system to not report on noise issues. Noise issues throughout the recognition process are added to the errors per minute count.</p>
+	<p class="content_p2">Noise errors are added to the error count and the cause can be anything from a noisy environment to a design flaws in the microphone... For example my Headset's cord mute button constantly generates noise when the microphone is muted. Having the option to disable this allows for my crappy mic to not falsely trigger errors. You may have that mic :) </p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsSRErrosPerMinute">Errors per Minute</h2>
+	<p class="content_p2">The Errors per Minute slider defines at what point you will be warned your setup is crap!</p>
+	<p class="content_p2">Every time the Recognition System (MS SAPI) reports an issue, be it noise or low confidence levels, an error is logged and a Errors per Minute average is calculated.</p>
+	<p class="content_p2">If the error count reaches the number defined by the slider, you will be notified that you need to fix your setup as a high error count means your setup is not properly set. either you have a bad microphone or you did not train the MS SAPI.</p>
+	<p class="content_p2">Below the slider is the current errors per minute that was calculated up to the point you opened the Options Window.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsSRConfidenceThreshold">Confidence Threshold</h2>
+	<p class="content_p2">Everything you say is compared to the dictionary of words and sentences the rule set for the application has defined.<p>
+	<p class="content_p2">Each word heard has a confidence level associated with it, meaning the system may be 50% sure you said a word in it's dictionary if that word was poorly pronounced.</p>
+	<p class="content_p2">Each sentence also has a confidence associated with it, as you speak the system becomes more confident that you said a sentence, even if the words had low confidence, if the sequence of words is only found in one sentence that confidence will rise.</p>
+	<p class="content_p2">The Confidence Threshold allows you to define what confidence constitutes a "pass" or a "fail" on a word or sentence. For example if you pronounce a word poorly, it may be recognized but with a 50% confidence and therefore the word may be thrown out because it is below the threshold... unless further consideration with more of the sentence processed turns this around. </p>
+	<p class="content_p2">If the confidence threshold is below the value specified by the slider, the matching action, if any, will not trigger.</p>
+	<p class="content_p2">Below the slider is the average confidence threshold value that was accumulated up to the point you opened the Options Window. The confidence is averaged over everything you said but with a higher importance on the last few words or sentences.</p>
+	<p class="content_p2">This threshold system is what greatly allows the <u>Recognize as I Speak</u> method to work with as little mistake as possible, along with proper MS SAPI Training.</p>
+	<p class="content_p2">The default threshold setting is set to 90%. It is strongly suggested you train MS SAPI so most everything you say has that confidence level or higher.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsSRTrainSAPI">Train MS SAPI</h2>
+	<p class="content_p2">This link will attempt to launch the <u>Windows Speech Recognition</u> software for you to train the <u>MS SAPI</u>.</p>
+	<img class="content_screenshot" src="../images/MS_SAPI.png">
+	<p class="content_p2">With this application, which is installed on all Windows Versions, you can change the Microphone and also Train the System's Voice Recognition.</p>
+	<p class="content_p2">Right Click the Microphone to access the menu.</p>
+	<img class="content_screenshot" src="../images/MS_SAPI_mnu.png">
+	<p class="content_p2">The two most important Menus will be under the <U>Configuration</U> menu. Mainly the <U>Setup my Microphone</U> and the <U>Improve Voice Recognition</U> menus.</p>
+	<p class="content_p2">The Options Window will wait for you to completely quit the application. </p>
+	<p class="content_p2">Ensure you completely quit the program when you are done setting things up as Hot Key Speak cannot run concurrently with the application as both would try to perform Voice Recognition which would create quite the interesting outcome.</p>
+	<p class="content_p2">Note, it happens sometimes that the change in settings required a restart of Hot Key Speak.</p>
+	<p class="content_p2">Note, it may also happens sometimes after a successful setup that HKS stops recognizing a microphone that was working before and you find yourself coming here to fix it. It may be faster for you to disconnect the microphone and re-connect it and then restart HKS.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsTextToSpeech">Text to Speech</h2>
+	<p class="content_p2">Some code may make use of the MS SAPI text to speech feature (AKA Microsoft Agents) in order to convey information, which can be both useful and annoying.</p>
+	<p class="content_p2">To limit this annoyance, a few options are available to you.</p>
+	<p class="content_p2">Note that these settings may be ignored by some functions depending on the use.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsSpeakRate">Speak Rate</h2>
+	<p class="content_p2">Defines how fast the text will be read.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsVoiceVolume">Voice Volume</h2>
+	<p class="content_p2">Defines how loud the voice will be.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsVoice">Voice</h2>
+	<p class="content_p2">Defines what voice to use.</p>
+	<p class="content_p2">This list may vary from installation to installation.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsDebugConsole">Debug Console</h2>
+	<p class="content_p2">The debug console is used to display and log information about what is happening in the application. A lot of information can be logged to the console according to the settings. The system can be used to figure out what is happening when things are not going right.</p>
+	<p class="content_p2">The console is interactive, meaning you can type in it and execute actions and even debug code similarly as you would in Chrome or Netscape's console...</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsDebugLevel">Debug Level</h2>
+	<p class="content_p2">The Debug Level defines the amount of information logged to the console. The default is logging only critical information which should be fine for regular use.</p>
+	<p class="content_p2">The system will log more and more information depending on the option selected.</p>
+	<p class="content_p2">These options should be self explaining.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsLogTo">Log To Folder</h2>
+	<p class="content_p2">Checking this option will enable the <u>log to file</u> option. Usually this is only needed if you have troubles that warrant sending the developer a trace log.</p>
+	<p class="content_p2">The <u>Temp Folder</u> link will open Explorer with the Temp Folder where HKS writes out every temporary file generated at run time, including the log file.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsOpenConsole">Open Console</h2>
+	<p class="content_p2">The <u>Open Console</u> link will open the Console Window where you can see the logged items and debug your code.</p>
+	<p class="content_p2">Note that the console will be cleared when you close it or when there is too much content.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsOK">OK Button</h2>
+	<p class="content_p2">Applies the changes and closes the dialog box. Some changes may require a restart.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="OptionsCancel">Cancel Button</h2>
+	<p class="content_p2">Cancels the changes and closes the dialog box.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	
+	
+	
+	
+	</body>
+</html>
+	

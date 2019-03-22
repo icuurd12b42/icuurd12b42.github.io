@@ -1,0 +1,129 @@
+<html>
+	<head>
+	    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">
+		<link rel="stylesheet" type="text/css" href="../styles.css?c=001">
+	</head>
+	<body class="content">
+	
+	<H1 class="content_h1" id="WindowContext">Edit Window Context Interface</h1>
+	<p class="content_p1">The Edit Window Context Interface allows you to change the Window Context Name, the filters (window title, class, active control name and text) to use to detect the window, as well as enabling or disabling the Window Context.</p>
+	<img class="content_screenshot" src="../images/WindowContextUI.png">
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextHowToUse">How To Use</h2>
+	<p class="content_p2">A Window Context works like a Command Context, however, it is activated whenever a specific window is active. Such as for example when a <u>File Open Dialog Box</u> is detected</p>
+	<p class="content_p2">This limits the available options to a stricter set of possibilities, therefore reducing reaction time for the system.</p>
+	<p class="content_p2">It also allows for a more natural work flow as the user can issue a <u>OK</u> or a <u>Cancel</u> command, when a File Dialog is active for example.</p>
+	<p class="content_p2">With the various fields available here you can make the system detect anything from a main window, a pop up dialog or even if a specific field or button is active.</p>
+	
+	<H3 class="content_h3">NOTE</h3>
+	<p class="content_p3">Unlike a Command Context, only the actions located underneath a Window Context are active.</p>
+	<p class="content_p3">A Window Context is also considered the root parent of any command or command context listed underneath.</p>
+	<p class="content_p3">The only way out of a window context is for another window to become active either by user interaction, closing the window or selecting another, or by having your code closing the window or switching to another.</p>
+
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="WindowContextFindWindow">Find Window</h2>
+	<table>
+	<tr>
+	<td>
+	<img class="content_icon" src="../images/FindWindow.ico">
+	</td>
+	<td>
+	<p class="content_p2">This allows you to find a Window using the Desktop.</p>
+	<p class="content_p2">After Activation, Navigate to the Application Window on the Desktop you wish to add and tap the Left Ctrl on the Keyboard. Some controls may require you hold down the left mouse button on them before you tap the Left Ctrl.</p>
+	<p class="content_p2">This will populate the fields below.</p>
+	<p class="content_p2">In the case you used <u>Find Window</u> to fill the fields, be sure to trim the fat from the Window Title, Control Name and Control Text fields; for example, changing <u>c:\somefolder\somefile.txt - Notepad</u> to simply <u>Notepad</u> may be a good idea to find all instances of Notepad</p>
+	</td>
+	</tr>
+	</table>
+	<p class="content_p2"/>
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+	<H2 class="content_h2"id="WindowContextName">Name</h2>
+	<p class="content_p2">Specify the name for the Window Context as it would appear in the tree-view.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextWindowTitle">Window Title</h2>
+	<p class="content_p2">Specify the window title to use as filter to be more accurate in the window detecting.</p>
+	<p class="content_p2">If the field is blank or is set to * it means the field is ignored.</p>
+	<p class="content_p2">The field may contain a specific piece of text, say <u>Notepad</u>, and the system will find the window who's title contains <u>Notepad</u> anywhere in its title which may be convenient in most cases.</p>
+	
+	
+	<p class="content_p2">The field may contain a <a style="text-decoration:none; color:#89CE46" href="https://regexr.com/">regex based wild-card</a>, not to be confuse with old * and ? based wild-card used to search folders. This allows stricter searches.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextWindowClass">Window Class</h2>
+	<p class="content_p2">Specify the Window Class to use as filter to be more accurate in the window detecting.</p>
+	<p class="content_p2">See Window Title Above for more information.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextControlName">Control Name</h2>
+	<p class="content_p2">Specify the Active Control Name in the Active Window to use as filter to be more accurate in the window detecting.</p>
+	<p class="content_p2">See Window Title Above for more information.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextControlText">Control Text</h2>
+	<p class="content_p2">Specify the Active Control Text in the Active Window to use as filter to be more accurate in the window detecting.</p>
+	<p class="content_p2">Depending on the Control Type, this may be text in an edit box or a caption in a button...</p>
+	<p class="content_p2">See Window Title Above for more information.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextEnabled">Enabled</h2>
+	<p class="content_p2">Specify if the Window Context is enabled. Disabled Window Context will be ignored by the system and so will any Commands located under it in the tree structure.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2"id="WindowContextCode">Code</h2>
+	<p class="content_p2">Specifies the code to run when the Window Context is activated. You can call any function or use any variables defined by the code in the Application Interface, or any of the code that was previously ran by items up the context chain. This is also a good place to reset variables that the actions under this context would need.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextOK">OK Button</h2>
+	<p class="content_p2">Applies the changes and closes the dialog box. Some changes may require a restart.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2"id="WindowContextCancel">Cancel Button</h2>
+	<p class="content_p2">Cancels the changes and closes the dialog box.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	
+	
+	
+	
+	</body>
+</html>
+	

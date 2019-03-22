@@ -1,0 +1,104 @@
+body {
+    background-color: #272727;
+}
+
+h1 {
+    color: navy;
+    margin-left: 20px;
+}
+
+
+.mainheader, iframe {
+	width:100%;
+	height:125px;
+	border: none;
+	position: fixed;
+	left:0px;
+	top:0px;
+
+}
+.mainheader, body {
+	margin: 0;
+}
+
+.mainfooter, iframe {
+	width:100%;
+	height:125px;
+	border: none;
+	left:0px;
+	
+}
+.mainfooter, body {
+	margin: 0;
+}
+.mainfooter, a {
+}
+
+.mainpage, body {
+	width:100%;
+	height:100%;
+}
+
+
+body.mainpage {
+    background-color: #272727;
+}
+
+
+table.maintable {
+	width:100%;
+	height:100%;
+	padding: 0px;
+	border: none;
+	padding: 0px;
+}
+
+iframe.mainheader {
+	width:100%;
+	height:125px;
+	border: none;
+	padding: 0px;
+	scrolling="no";
+	
+}
+
+body.mainheader{
+	margin: 0;
+	background-color: #FFFFFF;
+	height:125px;
+	border: none;
+	padding: 0px;
+}
+tr.mainheader {
+	height:125px;
+	border: none;
+	padding: 0px;
+}
+td.mainheader {
+	height:125px;
+	width:100%;
+	border: none;
+	padding: 0px;
+}
+
+table.middlepane {
+	valign:top;
+}
+tr.middlepane {
+	valign:top;
+}
+td.middlepane {
+	valign:top;
+}
+
+table.leftpane {
+}
+tr.leftpane {
+}
+td.leftpane {
+}
+
+tr.SearchEB {
+}
+td.SearchEB {
+}
