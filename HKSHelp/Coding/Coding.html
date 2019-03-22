@@ -1,0 +1,2268 @@
+<html>
+	<head>
+	    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">
+		<link rel="stylesheet" type="text/css" href="../styles.css?c=0009">
+		<link rel="stylesheet" href="../highlightjs/styles/SunburstHKSHelp.css">
+		<script src="../highlightjs/highlight.pack.js?c=0011"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+	</head>
+	<body class="content">
+	
+	<H1 class="content_h1" id="Coding">Coding Actions</h1>
+	<p class="content_p1">Every Command, Context, Window Context and Application Action Interface have a code box where you write the code that will be executed when these actions are activated.</p>
+	<p class="content_p1">The language used here is MS JScript which is a subset of JavaScript which is, notwithstanding it's limitations, very easy to learn. People with JavaScript experience should have little problem writing code.</p>
+	<p class="content_p1">The language does not have all the functions you would find while coding JavaScript in a browser, given it is mainly a Plain Jane core JavaScript engine without any libraries aside the core language features.</p>
+	<p class="content_p1">The language does have many AutoHotKey functions implemented, though not all of them have been tested.</p>
+	<p class="content_p1">Pressing F1 or Hitting the ? Icon in the Action Dialog with a valid function selected in the Code Box will bring Context Help on the function selected.</p>
+	
+	<img class="content_screenshot" src="../images/Codebox.png">
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingCodeBoxTools">Code Box Tools</h2>
+	<p class="content_p2">The tool ribbon under the code box allows you to test and edit the code.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHowItWorks">How It Works</h2>
+	<p class="content_p2">Applications in the tree-view have a set of rules, actions, that define Hot Keys, Speech Rules and code to execute when the action is activated. Each application has it's own JScript Interpreter associated with it.</p>
+	<p class="content_p2">When an application listed in the tree-view is activated, the code for it is executed. Its code box can be used to define global variables and global functions used by any other actions under that application.</p>
+	<p class="content_p2">When an action is activated, its code box code is loaded in the Active Script for the Application and the code is executed.</p>
+	<p class="content_p2">All you need to do is create a function that will encapsulate the code you wish to execute and call that function.</p>
+	<p class="content_p2">Ultimately you could do without a function and simply have the code in line, but having a function offers the ability to scope the variables your code requires and limit conflicts and have a safer more stable program.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+	<H2 class="content_h2" id="CodingTesting">Testing</h2>
+	<p class="content_p2">You can test your Hot Keys and Voice Recognition by CTRL-LEFT CLICKing the Application Item in the tree-view. Make sure the Application Item is not already selected when you do so.</p>
+	<p class="content_p2">In this mode the Hot Keys and Voice Recognition will activate the tree-view items as it would in the game, however the action code will not run. You have to manually run the code with the code tool ribbon mentioned above.</p>
+	<p class="content_p2">A good tip is to use Notepad as a test program to test things live, simply change the Application root item to use notepad.</p>
+	<p class="content_p2">Occasionally the JScript interpreter will fail silently if you call an non existing function. TIP: Select the function in the code editor and Press F1, if the function exists it will pop up in the help. Make sure you respected case sensitivity.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingProperFunctionSetup">Proper Function Setup</h2>
+	<p class="content_p2">In these examples, you see the code that defines what happens for a Reload Action for a game...</p>
+	
+	<p class="content_p2">Example defining a function and calling it. Note the try catch to silence any error. Remember that every code for every action is added to a single JScript Engine Instance for the Application. So functions added must not already exist in the tree-view structure.</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//define function
+function DoReload()
+{
+    try //Try to do this...
+    {
+        Send("r");
+    }
+    catch(e) //...catch any problems
+    {
+    }
+}
+//Call Function
+DoReload();
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<p class="content_p2">One useful trick is to define a nameless function and calling it at the same time. Some may find it ugly but the method allows copy pasting a function without care of duplicates while preserving the variable scoping ability...</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//calling function as it's being declared
+(function () {
+    try //Try to do this...
+    {
+        Send("r");
+    }
+    catch(e) //...catch any problems
+    {
+    }
+})();
+	</code></pre></td><td width=10%></td></tr></table>	
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<p class="content_p2">Finally simply calling the desired code to perform the action can be done in line. Beware this may result in odd behaviors with other code elsewhere as variables created at this level are global.</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//Just do it!
+try //Try to do this...
+{
+    Send("r");
+}
+catch(e) //...catch any problems
+{
+}
+	</code></pre></td><td width=10%></td></tr></table>	
+	<img class="content_sepline" src="../images/sepline.png">	
+
+
+	<H2 class="content_h2" id="CodingGlobals">Global Variables and Functions</h2>
+	<p class="content_p2">It is often the case that some actions may perform some common tasks like playing a sound. One would be annoyed if one would need to copy the same code everywhere.</p>
+	<p class="content_p2">As stated before, the Application action is performed when the application gets focused. It is a good place to declare global variables and define global functions.</p>
+	<p class="content_p2">Application Action Code. Note the global variables and the sound playing function.</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//the extracted sound resources
+var ActivateSound = ""; 
+var ReloadSound = ""; 
+var SwitchGunSound = ""; 
+//Define a Unique Function Name
+function OnSetup()
+{
+    //To safely do things without an error message poping up
+    try //Try to do this...
+    {
+        //Extract the Sound resources
+        ActivateSound = HKS.Resource.Fetch("confirm.wav");
+        ReloadSound = HKS.Resource.Fetch("reload.wav");
+        SwitchGunSound = HKS.Resource.Fetch("switch.wav");
+        
+        
+    }
+    catch(e) //...catch any problems
+    {
+        //debug out at Level 3, Ignorable Error Level
+        HKS.Debug.WriteNL("", 3);
+        HKS.Debug.WriteNL("Exception:", 3);
+        HKS.Debug.WriteNL("Game OnSetup()", 3);
+        HKS.Debug.WriteNL("" + e, 3);
+    }
+}
+//Call Function
+OnSetup();
+//Play the sound when application gets focused
+PlayTheSound(ActivateSound);
+
+//This function is called to play sound by various actions that need a clue that they triggered
+function PlayTheSound(sound)
+{
+    try
+    {
+        SoundPlay(sound ,"");
+    }
+    catch(e)
+    {
+    }
+}
+
+//In Reload Action
+PlayTheSound(ReloadSound);
+
+//In SwitchGun Action
+PlayTheSound(SwitchGunSound);
+	</code></pre></td><td width=10%></td></tr></table>
+	
+	<p class="content_p2">Reload Action</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//calling function as it's being declared
+(function () {
+    try //Try to do this...
+    {
+        Send("r");
+        PlayTheSound(ReloadSound);
+    }
+    catch(e) //...catch any problems
+    {
+    }
+})();
+	</code></pre></td><td width=10%></td></tr></table>	
+	<p class="content_p2">Switch Gun Action</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//calling function as it's being declared
+(function () {
+    try //Try to do this...
+    {
+        Send("e");
+        PlayTheSound(SwitchGunSound);
+    }
+    catch(e) //...catch any problems
+    {
+    }
+})();
+	</code></pre></td><td width=10%></td></tr></table>	
+	<img class="content_sepline" src="../images/sepline.png">	
+
+	<H2 class="content_h2" id="CodingHKSvsAHK">Hot Key Speak (JScript) vs AutoHotKey (AHK)</h2>
+	<p class="content_p2">There are differences between the JScript Code and AutoHotKey Code. Many will go unnoticed but a few have to be mentioned.<p>
+	<p class="content_p2">Watch for the little things like for example the assign (AKH :=, JScript =) operator and others, not going to go through every minor details here...</p>
+	<p class="content_p2">Watch for the "\" character when used in a string requiring to be doubled in JScript "\\"</p>
+	<p class="content_p2">Watch for CASE SENSITIVITY. AHK is not case sensitive while JScript is. Remember this, this is only applicable with function names. Arguments are still case insensitive.</p>
+	<p class="content_p2">Obviously AHK features/methods had to be ported to work under JScript, be advised that some features were not ported, such as functions requiring a callback...</p>
+	<p class="content_p2">Some AutoHotKey commands use keywords such as ON, OFF, and so on and some take defined constants like for keys, like ENTER. You may quote these, like "ON", "ENTER", "{ENTER}" and they will resolve properly.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingAHKFunctionsInJScript">AHK Functions in JScript</h2>
+	<p class="content_p2">Functions in AHK that return a value will be almost identical looking but beware that you MUST call parseInt() or any of the parseFunction() if the return value of the AHK function is not a string. This has to do with the interface between JScript and the AHK original as, mainly, every number in the AHK language is basically a string, hence the reason for the dot (.) operator for concatenating vs the + for adding a value... whereas JScript use + for both features... Note that, if you are just passing values back and forth between AHK functions, you don't need to use parseInt()</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="AutoHotKey">
+;AutoHotKey
+Number := Ord(String)
+if(Number == 32)
+{
+    ;space found
+    String .= "space"
+}
+	</code></pre></td><td width=10%></td></tr></table>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var Number = parseInt(Ord(String));
+if(Number == 32)
+{
+    //space found
+    String += "space";
+}
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingAHKCommandsInJScript">AHK Commands in JScript</h2>
+	<p class="content_p2">As many are aware, a lot of features in AHK come in the form of a command and in the form of a function. None of the AHK features come in command form in JScript. And those commands that did not already come in function form have been wrapped in a function, with pain and misery I might add.</p>
+	<p class="content_p2">Also, as mentioned, AHK does not distinguish between numbers and strings, so all number arguments may be passed as a string or a number. It's not really important but worth mentioning.</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="AutoHotKey">
+;AutoHotKey
+Send, {ENTER}
+Sleep, 100
+Send, {LBUTTON}
+	</code></pre></td><td width=10%></td></tr></table>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+Send("{ENTER}");
+Sleep(100); //Sleep("100"); //would be the same...
+Send("{LBUTTON}");
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">	
+
+	<H2 class="content_h2" id="CodingAHKMultipleOutputArguments">Multiple Output Arguments</h2>
+	<p class="content_p2">Some commands in AutoHotKey are implemented to used multiple output arguments, which allow the command to return multiple pieces of information when executed.</p>
+	<p class="content_p2">There is a MAJOR difference here between these commands and their JScript implementation you MUST be aware of.</p>
+	<p class="content_p2">Any command that sets arguments as output arguments had to be re-thought in order to provide the same functionality; without going into much details about the port, faced with the amount of functions to port and the number of issues I faced trying to support output arguments, I decided that these functions and commands would return an associative array.</p>
+	<p class="content_p2">The associative array returned will hold all the values the command can output, keyed by name where the names match that as specified by the AutoHotKey help file. The associative array names are not case sensitive.</p>
+	<p class="content_p2">There are limitations to this; for functions that accept prefix tags such as hwndTheHandle which define the output variable TheHandle on the fly, this feature could not be ported and for most cases the functions involved are already superseded by the underlying engine.</p>
+	<p class="content_p2">When calling such function, you only supply the input arguments and skip over any output arguments.</p>
+	<p class="content_p2"/>
+	<p class="content_p2">This example here will make things a little more clear.</p>
+	
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="AutoHotKey">
+;AutoHotKey
+filename := "c:\afolder\asubfolder\afile.ext"
+SplitPath, %filename%, OutFileName, OutDir, OutExtension, OutNameNoExt, OutDrive
+OutputDebug, %OutFileName%
+OutputDebug, %OutDir%
+OutputDebug, %OutExtension%
+OutputDebug, %OutNameNoExt%
+OutputDebug, %OutDrive%
+	</code></pre></td><td width=10%></td></tr></table>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var filename = "c:\\afolder\\asubfolder\\afile.ext";
+var ret = SplitPath(filename);
+OutputDebug(ret["OutFileName"]);
+OutputDebug(ret["OutDir"]);
+OutputDebug(ret["OutExtension"]);
+OutputDebug(ret["OutNameNoExt"]);
+OutputDebug(ret["OutDrive"]);
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">	
+
+	<H2 class="content_h2" id="CodingAHKSingleArgument">Single Output Argument</h2>
+	<p class="content_p2">Some commands in AutoHotKey are implemented to use an argument as output parameter, which allow the command to return information through the passed variables name in an argument/parameter.</p>
+	<p class="content_p2">The solution to this was made much easier than the above Multiple Argument conundrum, the output argument is simply returned by the function, as a regular function would. No associative array required.</p>
+	<p class="content_p2">When calling such function, you only supply the input arguments and skip over the output argument.</p>
+	<p class="content_p2"/>
+	<p class="content_p2">This example here will make things a little more clear.</p>
+	
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="AutoHotKey">
+;AutoHotKey
+Random, OutputVar, 0, 100
+OutputDebug %OutputVar%
+	</code></pre></td><td width=10%></td></tr></table>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var ret = Random(0,100);
+OutputDebug(ret);
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingAHKBultInVariablesInJScript">AHK Built-In Variables JScript</h2>
+	<p class="content_p2">Built-In variables support is done via a generic wrapper function that takes the name of the variable as parameter, discussed in more details later</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="AutoHotKey">
+;AutoHotKey
+if(ErrorLevel == 5)
+{
+    OutputDebug %ErrorLevel%
+}
+	</code></pre></td><td width=10%></td></tr></table>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+if(GetBuiltInVar("ErrorLevel") == 5)
+{
+    OutputDebug(GetBuiltInVar("ErrorLevel"));
+}
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingRedesignedFunctions">Redesigned Functions</h2>
+	<p class="content_p2">While investigating the functions I wanted to allow calling from JScripts, a few things were found that warranted some tweaks. Some necessary for proper support, some for safer usage.</p>
+	<p class="content_p2">The following are the AutoHotKey functions that were modified.</p>
+	
+	<H2 class="content_h2" id="CodingBlockInput">BlockInput</h2>
+	<pre><code class="JavaScript">BlockInput(Str ONorOFF)</code></pre>
+	<p class="content_p2">Please Read the BlockInput Help on the AutoHotKey site <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/commands/BlockInput.htm#BlockInput">Here</a>.</p>
+	<p class="content_p2">This function is supplemented with a timer that will re-enable the inputs after 10 seconds.</p>
+	<p class="content_p2">If the application is not running with administrator privilege it will wait for the user to release any key he may be holding down. See KeyWaitAll() Below.</p>
+	
+	
+	<H2 class="content_h2" id="CodingAHKGetBuiltInVar">GetBuiltInVar</h2>
+	<pre><code class="JavaScript">GetBuiltInVar(Str VarName)</code></pre>
+	<p class="content_p2">Since you cannot access the built-in variables directly, this function will get the value of the specified AutoHotKey variable.</p>
+	<p class="content_p2">Please Read the Built-In Variable Section on the AutoHotKey site <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Variables.htm#BuiltIn">Here</a>.</p>
+	<p class="content_p2">Note: The function is a blind write, not all variables may be available or useful on the JScript side.</p>
+	
+	<H2 class="content_h2" id="CodingKeyWaitAll">KeyWaitAll</h2>
+	<pre><code class="JavaScript">KeyWaitAll()</code></pre>
+	<p class="content_p2">This function will wait for the user to release all keys he's holding down.</p>
+		
+	<H2 class="content_h2" id="CodingOutputDebug">OutputDebug</h2>
+	<pre><code class="JavaScript">OutputDebug(Str Text)</code></pre>
+	<p class="content_p2">Please Read the OuputDebug Help on the AutoHotKey site <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/commands/OutputDebug.htm#OutputDebug">Here</a>.</p>
+	<p class="content_p2">This function is set to use the HotKeySpeak Console Window. It can be used as a shorter form of HKS.Debug.Write().</p>
+
+	
+	<H2 class="content_h2" id="CodingSetTimer">SetTimer</h2>
+	<pre><code class="JavaScript">SetTimer(Str FunctionName, Int Time)</code></pre>
+	<pre><code class="JavaScript">SetTimer(Str FunctionName, Str ONorOFForDELETE)</code></pre>
+	<p class="content_p2">Please Read the SetTimer Help on the AutoHotKey site <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/commands/SetTimer.htm#SetTimer">Here</a>.</p>
+	<p class="content_p2">The Timer System is slightly different in usage than its AutoHotKey Equivalent.</p>
+	<p class="content_p2">All timers created are in fact governed by an single internal timer that runs at 33 ms (the fastest I was able to make it tick) so a timer may not be exactly on time.<p>
+	<p class="content_p2">Instead of passing a callback function the JScript version expects a STRING!!</p>
+	<p class="content_p2">This String has to be a JScript expression or a function including braces and argument.</p>
+	<p class="content_p2">This String will be interpreted when the timer event triggers.</p>
+	<p class="content_p2">This String may reference a GLOBAL variable previously defined by the code, the variable value will be resolved when the timer event triggers. If you want the value to be interpreted when you setup the timer, you need to build the string yourself.</p>
+	<p class="content_p2">This String is used internally as a key to map to the internal structure each timer instance requires, It is used to locate the timer if you want to turn it OFF. It is also used by the other functions described later.</p>
+<p class="content_p2"/>
+<p class="content_p2">Conventional example, AHK vs JScript</p>
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="AutoHotKey">
+;AutoHotKey
+SetTimer, TimeFunc, -100 ;-time means trigger only once
+TimeFunc()
+{
+    OutputDebug, TimeFunc Triggered
+}
+global tickcount := 0
+SetTimer, TimerLabel, 100
+return
+
+TimerLabel:
+{
+    OutputDebug, TimerLabel Triggered 
+    tickcount++
+    if(tickcount > 5)
+    {
+        SetTimer, TimerLabel, OFF
+    }
+}
+	</code></pre></td><td width=10%></td></tr></table>
+</code></pre></td><td width=10%></td></tr></table>
+
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+SetTimer("TimeFunc()", -100); //-time means trigger only once
+function TimeFunc()
+{
+    OutputDebug("TimeFunc Triggered");
+}
+var tickcount = 0;
+SetTimer("TimerLabel()", 100);
+
+function TimerLabel()
+{
+    OutputDebug("TimerLabel Triggered");
+    tickcount++;
+    if(tickcount > 5)
+    {
+        SetTimer("TimerLabel()", "OFF");
+    }
+}
+	</code></pre></td><td width=10%></td></tr></table>
+	
+<p class="content_p2"/>
+<p class="content_p2">SetTimer accepts functions with argument and system functions</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+function DoIt(Key)
+{
+    Send(Key);
+}
+SetTimer("DoIt(1)", -100); //since 1 (a number) will resolve as "1" internally, this is acceptable
+SetTimer("Send(2)", -200);
+SetTimer("Send(3)", -300);
+SetTimer("DoIt('4')", -400); //same result
+SetTimer("Send('H')", -500); //Obviously if wanting to send a character...
+SetTimer("Send('ello')", -500); //... or a string, the double quote and single quote trick works
+SetTimer("Send('{ENTER}')", -600);
+	</code></pre></td><td width=10%></td></tr></table>	
+
+<p class="content_p2"/>
+<p class="content_p2">SetTimer accepts global variables</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var NumRepeats = 1;
+//will be called with 1 on first tic, 2 on 2nd...
+function TimerFunc(rep) 
+{
+    var out = "";
+    for(var i = 0; i < rep; i++)
+    {
+        out += i;
+    }
+    OutputDebug(out);
+    NumRepeats++;
+    if(rep > 5)
+    {
+        OutputDebug("QUIT");
+        SetTimer("TimerFunc(NumRepeats)", "OFF"); // the timer name is still literally "TimerLabel(NumRepeats)"
+    }
+}
+SetTimer("TimerFunc(NumRepeats)", 100); //will do 1,2,3,4 and quit
+	</code></pre></td><td width=10%></td></tr></table>	
+	
+<p class="content_p2"/>
+<p class="content_p2">SetTimer accepts expression, obviously it's preferable to make a function though</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var Counter = 0;
+SetTimer("Counter++; if((Counter % 5) == 0) { Send(1)} else {Send(0)}", 100); //will sent 0 0 0 0 1 0 0 0 0 1.... with no way to stop it 
+	</code></pre></td><td width=10%></td></tr></table>	
+	
+	<H2 class="content_h2" id="CodingTimerExists">TimerExists</h2>
+	<pre><code class="JavaScript">TimerExists(Str FunctionName)</code></pre>
+	<p class="content_p2">This addition allows you to check if a timer exists.</p>
+	<p class="content_p2">Since SetTimer requires a string to define the expression to execute and said string is used as a key to map to a structure, this key can be used to see if the timer exists.</p>
+    <p class="content_p2"/>
+
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+SetTimer("Send(1)", -100); 
+SetTimer("Send(2)", -200);
+OutputDebug("Send 1 exists? " + TimerExists("Send(1)")); // the cool trick is the same function with a different argument makes its own timer...
+OutputDebug("Send 2 exists? " + TimerExists("Send(2)"));
+OutputDebug("Send 3 exists? " + TimerExists("Send(3)"));
+	</code></pre></td><td width=10%></td></tr></table>
+	
+		<H2 class="content_h2" id="CodingTimerClearAll">TimerClearAll</h2>
+		<pre><code class="JavaScript">TimerClearAll()</code></pre>
+	<p class="content_p2">This addition allows you to clear all the timers you created which can be useful if you create timers that you can't later figure the name for, such as in the case of the timer based cool down action later on.</p>
+	<p class="content_p2"/>
+
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+SetTimer("Send(1)", -1000); 
+SetTimer("Send(2)", -1000); 
+SetTimer("Send(3)", -1000); 
+TimerClearAll();
+	</code></pre></td><td width=10%></td></tr></table>
+	
+	
+	
+	<H2 class="content_h2" id="CodingTimerTimeLeft">TimerTimeLeft</h2>
+	<pre><code class="JavaScript">TimerTimeLeft(Str FunctionName)</code></pre>
+	<p class="content_p2">This addition allows you to check how much time is left in the timer.</p>
+	<p class="content_p2">Since SetTimer requires a string to define the expression to execute and said string is used as a key to map to a structure, this key can be used to see how much time is left in the timer.</p>
+	<p class="content_p2">It is useful to know the time left in a timer if you wish to synchronize event such as with games with cool-downs.</p>
+	<p class="content_p2">the function return the time left until the timer triggers. if the timer does not exist or it's time has expired, 0 is returned.</p>
+	<p class="content_p2"/>
+
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+SetTimer("Send(1)", -1000); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+Sleep(100);
+OutputDebug("Time Left: " + TimerTimeLeft("Send(1)")); 
+
+SetTimer("Send(2)", -(100 + parseInt(TimerTimeLeft("Send(1)")))); //doing math with it require converting to a real number
+	</code></pre></td><td width=10%></td></tr></table>
+	
+	<p class="content_p2"/>
+	<p class="content_p2">Example stacking events that have a cool down system using a timer. For systems that prevent keyboard bashing for example, like you can't fire magic 2 if you just fired magic 1. The cool down here is not the amount of time Magic 1 takes to recharge.</p>	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//In Application Code
+var CoolDownTime = 1000;
+var TimersAdded = [];
+//Callback to keep time, runs when there is no more cool down accumulated
+function CoolDownOver()
+{
+    try //Try to do this...
+    {
+
+        //The timer finally had a chance to trigger
+        //loop through all the registered stacked timers and delete them
+        while(TimersAdded.length)
+        {
+            //get the timer name and remove from array
+            var timername = TimersAdded.pop();
+            //delete the timer
+            SetTimer(timername, "Delete"); 
+        }
+        //Or if you don't have other timers in the rules, this would do
+        //TimersAdded = []; // or reuse current... while(TimersAdded.length) {TimersAdded.pop()}
+        //TimerClearAll();
+    }
+    catch(e) //...catch any problems
+    {
+        
+    }
+}
+//pass "Send('AKey')" for example
+function StackSendAction(Code) 
+{
+    try //Try to do this...
+    {
+        //get the time left in the cool down
+        var TimeLeft = parseInt(TimerTimeLeft("CoolDownOver()"));
+        //no cool down period awaiting...
+        if(TimeLeft == 0)
+        {
+            //execute the code passed NOW via eval
+            eval(Code); 
+            //set the cool down
+            SetTimer("CoolDownOver()", -CoolDownTime); 
+        }
+        else
+        {
+            //there is a cool down in progress
+            //create a "Send(key)//1..2..3.." unique timer to run this code later as a timer
+            //the comment appended to it will serve as a unique key. which will allow stacking the same code multiple times
+            var TimerCodeName = Code + "//" + TimersAdded.length;
+            //remember the timer created
+            TimersAdded.push(TimerCodeName); 
+            //create the timer
+            SetTimer(TimerCodeName, -TimeLeft); 
+            //add to the cool down timer
+            SetTimer("CoolDownOver()", -(TimeLeft + CoolDownTime)); 
+        }
+    }
+    catch(e) //...catch any problems
+    {
+        
+    }
+}
+//In An Action
+StackSendAction("Send('a')");
+
+//In Another Action
+StackSendAction("Send('b')");
+	</code></pre></td><td width=10%></td></tr></table>	
+	
+	<H2 class="content_h2" id="CodingAHKSetBuiltInVar">SetBuiltInVar</h2>
+	<pre><code class="JavaScript">SetBuiltInVar(Str VarName, Any Value)</code></pre>
+	<p class="content_p2">Since you cannot access the built-in variables directly, this function will set the value of the specified AutoHotKey variable.</p>
+	<p class="content_p2">Please Read the Built-In Variable Section on the AutoHotKey site <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Variables.htm#BuiltIn">Here</a>.</p>
+	<p class="content_p2">Note: The function is a blind write, not all variables may be allowed to be set via this function.</p>
+	
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHelperClassed">Helper Classes</h2>
+	<p class="content_p2">Aside the Redesigned Functions mentioned above, HotKeySpeak also extents AutoHotKey with a set of classes that give access to HotKeySpeak inherent features as well as providing features you may find useful.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKSRootClasse">HKS Root Class</h2>
+	<p class="content_p2">The HKS class is the root container class for all HotKeySpeak features.</p>
+	<p class="content_p2">From the HKS class you can access sub classes categorized by feature.</p>
+	<p class="content_p2">This class has no member functions.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Action">HKS.Action Class</h2>
+	<p class="content_p2">The Action class provides access the actions, which are the Commands, the Command Context and other items found in the Application TreeView.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Action.Activate">HKS.Action.Activate Member Function</h2>
+	<pre><code class="JavaScript">HKS.Action.Activate(Str ActionName)</code></pre>
+	<p class="content_p2">The Activate function takes an Action Name as defined in the Application Tree-view.</p>
+	<p class="content_p2">When called, the action will be activated as though its hot key was pressed or spoken sentence was uttered.</p>
+	<p class="content_p2">The actions allowed are limited to Commands and Command Context.</p>
+	<p class="content_p2">The search is performed from the root application Item. </p>
+	<p class="content_p2">If the action is or is under a Window Context the action will not activate.</p>
+	<p class="content_p2">Disabled actions or ones in disabled groups cannot be activated.</p>
+	<p class="content_p2">Actions contained in a hierarchy of Command Contexts will not have the parent Command Contexts activated. You will need to activate each parent action individually if required.</p>
+	
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//Activate the FileMenu Context
+HKS.Action.Activate("FileMenu");
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.Action.Run">HKS.Action.Run Member Function</h2>
+	<pre><code class="JavaScript">HKS.Action.Run(Str ActionName)</code></pre>
+	<p class="content_p2">The Run function takes an Action Name as defined in the Application Tree-view.</p>
+	<p class="content_p2">This method allows running code of an action directly which is sometimes useful.</p>
+	<p class="content_p2">When called, the code in the specified action will be executed without activating the action.</p>
+	<p class="content_p2">Any tree-view item, aside the root application item, that has code can be executed this way.</p>
+	<p class="content_p2">The search is performed from the root application Item. </p>
+	<p class="content_p2">This method ignores the Enabled flag of the Action or the Enabled flag of any parent group.</p>
+	<p class="content_p2">Actions contained in a hierarchy of Command Contexts will not have the parent Command Contexts code executed. You will need to run each parent action code individually if required.</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//Run the FileSave Command
+HKS.Action.Run("FileSave");
+	</code></pre></td><td width=10%></td></tr></table>
+	<p class="content_p2">It was mentioned before that you can define functions in the Application Action and call them directly from many places; you may have a set of functions or features located in a library you would like to use, without wanting to copy and paste the code, creating the functions, in the Application Action. This method allows including libraries, calling an action that defines a set of useful functions for example.</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//Application Action
+//Include my library of functions located in MyCommonFunctions action
+HKS.Action.Run("MyCommonFunctions");
+//call the functions I need now that they exist
+MyFavoriteFunction1();
+MyFavoriteFunction2();
+
+//In another Action
+MyFavoriteFunction3();
+	</code></pre></td><td width=10%></td></tr></table>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//MyCommonFunctions Action
+
+Function MyFavoriteFunction1()
+{
+    //some useful code
+}
+Function MyFavoriteFunction2()
+{
+    //some useful code
+}
+Function MyFavoriteFunction3()
+{
+    //some useful code
+}
+	</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.Debug">HKS.Debug Class</h2>
+	<p class="content_p2">The Debug Class offers functions that will allow you to output information to the debug/console window.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	
+	<H2 class="content_h2" id="CodingHKS.Debug.Breakpoint">HKS.Debug.Breakpoint Member Function</h2>
+	<pre><code class="JavaScript">HKS.Debug.Breakpoint(Str Name)</code></pre>
+	<p class="content_p2">This function will halt the execution of the code and launch the Debug Console Window, and wait for it to close. </p>
+	<p class="content_p2">It is sometimes difficult to catch a problem in the act. if you use this function in your code you will be allowed to inspect things using the Debug Console.</p>
+	<p class="content_p2">In the Debug Console you will have access to all the global variables but none of the local variables if called in a function...</p>
+	<p class="content_p2">... you can transfer local variables to temporary global ones to have access to the data from the Debug Console.</p>
+	<p class="content_p2">Spending too much time in the Debug Console using this method may cause the Script Engine to time out.</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var theGlobal = "Top Of Code Box";
+HKS.Debug.BreakPoint("Test At Top Of Code");
+function testDebug()
+{
+    var testvar = "In Function";
+    theGlobal = testvar 
+    HKS.Debug.BreakPoint("Test In Function");
+}
+testDebug()
+    </code></pre></td><td width=10%></td></tr></table>
+	
+<p class="content_p2">Debug Console</p>
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+BREAK POINT Test At Top Of Code
+Close Console When Done!
+>? theGlobal
+Top Of Code Box
+>close|
+</code></pre></td><td width=10%></td></tr></table>
+
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+BREAK POINT Test In Function
+Close Console When Done!
+>? theGlobal
+In Function
+>close|
+</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+	<H2 class="content_h2" id="CodingHKS.Debug.MsgBox">HKS.Debug.MsgBox Member Function</h2>
+	<pre><code class="JavaScript">HKS.Debug.MsgBox(Str Text)</code></pre>
+	<p class="content_p2">This function allows you to show a Message Box to the user. </p>
+	<p class="content_p2">The benefit over the AutoHotKey version is all the flags are set properly for it to show and stay above the HotKeySpeak Application.</p>
+	<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var aVariable = 10;
+HKS.Debug.MsgBox("The Variable is " + aVariable);
+//Shows a Message box with "The Variable is 10"
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.Debug.Write">HKS.Debug.Write Member Function</h2>
+	<pre><code class="JavaScript">HKS.Debug.Write(Str Text, Int DebugLevel = 5)</code></pre>
+	<p class="content_p2">This function allows writing information to the console window.</p>
+	<p class="content_p2">The function accepts an optional second argument to specify the Debug Level. The default is 5, Critical Information.</p>
+	<p class="content_p2">The text is sent without a new line at the end.</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var aVariable = 10;
+HKS.Debug.Write("The Variable is ");
+HKS.Debug.Write(aVariable);
+//Shows 
+//The Variable is 10
+//in the console
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.Debug.WriteNL">HKS.Debug.WriteNL Member Function</h2>
+	<pre><code class="JavaScript">HKS.Debug.WriteNL(Str Text = "", Int DebugLevel = 5)</code></pre>
+	<p class="content_p2">The Text argument is optional.</p>
+	<p class="content_p2">This function allows writing information to the console window.</p>
+	<p class="content_p2">The function accepts an optional second argument to specify the Debug Level. The default is 5, Critical Information.</p>
+	<p class="content_p2">The text is sent adding a new line at the end.</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var aVariable = 10;
+HKS.Debug.WriteNL("The Variable is");
+HKS.Debug.WriteNL(aVariable);
+//Shows 
+//The Variable is
+//10
+//in the console
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.Debug.WriteSP">HKS.Debug.WriteSP Member Function</h2>
+	<pre><code class="JavaScript">HKS.Debug.WriteSP(Str Text = "", Int DebugLevel = 5)</code></pre>
+	<p class="content_p2">This function allows writing information to the console window.</p>
+	<p class="content_p2">The Text argument is optional.</p>
+	<p class="content_p2">The function accepts an optional second argument to specify the Debug Level. The default is 5, Critical Information.</p>
+	<p class="content_p2">The text is sent adding a space at the end.</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var aVariable = 10;
+HKS.Debug.WriteSP("The Variable is");
+HKS.Debug.WriteSP(aVariable);
+var aVariable2 = 20;
+HKS.Debug.WriteSP("The Other Variable is");
+HKS.Debug.WriteSP(aVariable2);
+//Shows 
+//The Variable is 10 The Other Variable is 20
+//in the console
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.Debug.WriteClear">HKS.Debug.WriteClear Member Function</h2>
+	<pre><code class="JavaScript">HKS.Debug.WriteClear(Str Text = "", Int DebugLevel = 5)</code></pre>
+	<p class="content_p2">This function allows writing information to the console window.</p>
+	<p class="content_p2">The Text argument is optional.</p>
+	<p class="content_p2">The function accepts an optional second argument to specify the Debug Level. The default is 5, Critical Information.</p>
+	<p class="content_p2">The Console Window is cleared of its content before the text is sent... </p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+var aVariable = 10;
+HKS.Debug.WriteClear("The Variable is " + aVariable);
+//Clears the console and shows 
+//The Variable is 10
+//in the console
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Debug.Show">HKS.Debug.Show Member Function</h2>
+	<pre><code class="JavaScript">HKS.Debug.Show()</code></pre>
+	<p class="content_p2">This pops up the console window.</p>
+	<p class="content_p2">It is mainly useful when wanting to debug your code using the console and are too tired of constantly going in the options screen to show the console. Adding this line in your code temporarily can help.</p>
+	<p class="content_p2">Note that all Write functions will Show() the console if the Debug Level matches the current setting as set in the options screen.</p>
+
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+HKS.Debug.Show();
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse">HKS.Mouse Class</h2>
+	<p class="content_p2">The Mouse Class offers functions and sub classes that will allow you to control the mouse.</p>
+	<p class="content_p2">These supplemental classes were added to provide extra support found to be essential especially when trying to add mouse movement for games.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.StartDetect">HKS.Mouse.StartDetect Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.StartDetect()</code></pre>
+	<p class="content_p2">Turn the mouse movement detection back ON so the game sees the mouse moving.</p>
+	<p class="content_p2">Requires you having called HKS.Mouse.StopDetect() first.</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//Stop the app from seeing mouse movement
+HKS.Mouse.StopDetect();
+//Invisibly Move The Mouse here
+...
+//Allow the app to see mouse movement again
+HKS.Mouse.StartDetect();
+//Move The Mouse here
+...
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.StopDetect">HKS.Mouse.StopDetect Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.StopDetect()</code></pre>
+	<p class="content_p2">Turn the mouse movement detection OFF so the game can't see the mouse moving.</p>
+	<p class="content_p2">Requires you call HKS.Mouse.StartDetect() when you are done otherwise the user may not be able to click the app again without first clicking another app on the desktop.</p>
+	<p class="content_p2">NOTE: Movement made with HKS.Mouse.Direct functions may still be detected by the game. Use Mouse.Pix or Mouse.UV to move the mouse undetected.</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//Stop the app from seeing mouse movement
+HKS.Mouse.StopDetect();
+//Invisibly Move The Mouse here
+...
+//Allow the app to see mouse movement again
+HKS.Mouse.StartDetect();
+//Move The Mouse here
+...
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">	
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.Direct">HKS.Mouse.Direct Class</h2>
+	<p class="content_p2">The Mouse.Direct Class offers functions to move the mouse directly via the hardware.</p>
+	<p class="content_p2">Some games read the mouse movement directly from the hardware as opposed to determine a movement off of the mouse moving on the game window.</p>
+	<p class="content_p2">For these games you have to send mouse movement through hardware for them to notice.</p>
+	<p class="content_p2">These functions also move the mouse over the window, meaning they are compatible for regular windowed application though it is recommended you use the Mouse.Pix or mouse.UV for those.</p>
+	<p class="content_p2">The Direct functions take Mickeys for movement distance, not Pixels. A mickey is the amount that a mouse has to move for the mouse to report that it has moved.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.Direct.MoveByXYVector">HKS.Mouse.Direct.MoveByXYVector Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.Direct.MoveByXYVector(Int MickeysDX, Int MickeysDY, Int NumMoves)</code></pre>
+	<p class="content_p2">Moves the mouse in the direction specified by Deviation X, Deviation Y vector. Cannot be a fraction.</p>
+	<p class="content_p2">NumMoves specifies the number of times the deviation is applies. Must be 1 or higher.</p>
+	<p class="content_p2">The actions takes 16 ms per repeat to perform.</p>
+	<p class="content_p2">The movement is relative to the current mouse pointer position, if used in the context where an actual mouse pointer is used.</p>
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move 5000 Mickeys Upper Left... Should be enough to set it upper left corner
+HKS.Mouse.Direct.MoveByXYVector(-5000, -5000, 1);
+Sleep(1000);
+//move 100 Mickeys down and right
+HKS.Mouse.Direct.MoveByXYVector(100, 100, 1);
+Sleep(1000);
+//move 200 Mickeys to the right moving by 20, 10 times
+HKS.Mouse.Direct.MoveByXYVector(20, 0, 10);
+Sleep(1000);
+//move 200 Mickeys down, a little math helps clarify
+HKS.Mouse.Direct.MoveByXYVector(0, 200/10, 10);
+Sleep(1000);
+//move 200 Mickeys left
+HKS.Mouse.Direct.MoveByXYVector(-200/10, 0, 10);
+Sleep(1000);
+//move 200 Mickeys up
+HKS.Mouse.Direct.MoveByXYVector(0, -200/10, 10);
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+		<H2 class="content_h2" id="CodingHKS.Mouse.Direct.MoveInDirection">HKS.Mouse.Direct.MoveInDirection Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.Direct.MoveInDirection(Int Direction, Int MickeysAmount, Int NumMoves)</code></pre>
+	<p class="content_p2">Moves the mouse by the amount specified by MickeysAmount in the direction specified by Direction (an angle 0 to 360 degrees, where 0 is right and the degrees go counterclockwise).</p>
+	<p class="content_p2">NumMoves specifies the number of times the deviation is applies. Must be 1 or higher.</p>
+	<p class="content_p2">The actions takes 16 ms per repeat to perform.</p>
+	<p class="content_p2">The movement is relative to the current mouse pointer position, if used in the context where an actual mouse pointer is used.</p>
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move 5000 Mickeys Upper Left... Should be enough to set it upper left corner
+HKS.Mouse.Direct.MoveInDirection(135, 5000, 1);
+Sleep(1000);
+//move 100 Mickeys down and right
+HKS.Mouse.Direct.MoveInDirection(-45, 100, 1);
+Sleep(1000);
+//move 200 Mickeys to the right moving by 20, 10 times
+HKS.Mouse.Direct.MoveInDirection(0, 20, 10);
+Sleep(1000);
+//move 200 Mickeys down, a little math helps clarify
+HKS.Mouse.Direct.MoveInDirection(-90, 200/10, 10);
+Sleep(1000);
+//move 200 Mickeys left
+HKS.Mouse.Direct.MoveInDirection(180, 200/10, 10);
+Sleep(1000);
+//move 200 Mickeys up
+HKS.Mouse.Direct.MoveInDirection(90, 200/10, 10);
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.Pix">HKS.Mouse.Pix Class</h2>
+	<p class="content_p2">The Mouse.Pix Class offers functions to move the mouse by pixel value.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveOnScreen">HKS.Mouse.Pix.MoveOnScreen Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.Pix.MoveOnScreen(Int X, Int Y, Int Iterations = 0, Str Relative = "")</code></pre>
+	<p class="content_p2">Relative is optional. Passing anything but "" will make the move relative, else the move is absolute.</p>
+	<p class="content_p2">In Relative mode, X and Y are a direction vector. Moves the mouse in the direction specified by Deviation X, Deviation Y vector. Cannot be a fraction.</p>
+	<p class="content_p2">In Absolute mode, X and Y are Screen Coordinates. Moves the mouse at the specified coordinate.</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move divided by the iteration must resolve in a value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	<p class="content_p2">NOTE: Coordinate 0,0 is the upper left corner of the Display the Mouse is currently in! This is usually the display a full screen game has locked to mouse onto.</p>
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move to 100,100 on the screen
+HKS.Mouse.Pix.MoveOnScreen(100, 100);
+Sleep(1000);
+//move 200 pixels to the right, relative
+HKS.Mouse.Pix.MoveOnScreen(200, 0, 10, true);
+Sleep(1000);
+//move 200 pixels down, again relative, this time passing "Relative" to the function to remind us
+HKS.Mouse.Pix.MoveOnScreen(0, 200, 10, "Relative");
+Sleep(1000);
+//move to 100, 300
+HKS.Mouse.Pix.MoveOnScreen(100, 300, 10);
+Sleep(1000);
+//move 200 pixels back up slowly
+HKS.Mouse.Pix.MoveOnScreen(0, -200, 100, "Relative");
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveOnWindow">HKS.Mouse.Pix.MoveOnWindow Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.Pix.MoveOnWindow(Int X, Int Y, Int Iterations = 1, Str Relative = "")</code></pre>
+	<p class="content_p2">Relative is optional. Passing anything but "" will make the move relative, else the move is absolute.</p>
+	<p class="content_p2">In Relative mode, X and Y are a direction vector. Moves the mouse in the direction specified by Deviation X, Deviation Y vector. Cannot be a fraction.</p>
+	<p class="content_p2">In Absolute mode, X and Y are Window Relative Coordinates. Moves the mouse at the specified coordinate, 0,0 would be the upper left corner of the window.</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move divided by the iteration must resolve in a value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	<p class="content_p2">NOTE: If the Active window is Iconic the function will have no effect.</p>
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move to 100,100 on the window
+HKS.Mouse.Pix.MoveOnWindow(100, 100);
+Sleep(1000);
+//move 200 pixels to the right, relative
+HKS.Mouse.Pix.MoveOnWindow(200, 0, 10, true);
+Sleep(1000);
+//move 200 pixels down, again relative, this time passing "Relative" to the function to remind us
+HKS.Mouse.Pix.MoveOnWindow(0, 200, 10, "Relative");
+Sleep(1000);
+//move to 100, 300
+HKS.Mouse.Pix.MoveOnWindow(100, 300, 10);
+Sleep(1000);
+//move 200 pixels back up slowly
+HKS.Mouse.Pix.MoveOnWindow(0, -200, 100, "Relative");
+Sleep(1000);
+//move to 0, 0 on the window
+HKS.Mouse.Pix.MoveOnWindow(0, 0);
+Sleep(1000);
+//move 100 beyond the window upper left corner
+HKS.Mouse.Pix.MoveOnWindow(-100, -100, 100);
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+<H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveInDirectionScreen">HKS.Mouse.Pix.MoveInDirectionScreen Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.Pix.MoveInDirectionScreen(Int Direction, Int Distance, Int Iterations = 1)</code></pre>
+	<p class="content_p2">Moves the mouse by the pixel amount specified by Distance in the direction specified by Direction (an angle 0 to 360 degrees, where 0 is right and the degrees go counterclockwise).</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move divided by the iteration must resolve in a value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move to 100,100 on the screen
+HKS.Mouse.Pix.MoveOnScreen(100, 100);
+Sleep(1000);
+//move 100 Pixels down and right
+HKS.Mouse.Pix.MoveInDirectionScreen(-45, 100, 5);
+Sleep(1000);
+//move 200 Pixels to the right moving by 200, 10 iterations
+HKS.Mouse.Pix.MoveInDirectionScreen(0, 200, 10);
+Sleep(1000);
+//move 200 Pixels down,
+HKS.Mouse.Pix.MoveInDirectionScreen(-90, 200, 10);
+Sleep(1000);
+//move 200 Pixels left
+HKS.Mouse.Pix.MoveInDirectionScreen(180, 200, 10);
+Sleep(1000);
+//move 200 Pixels up
+HKS.Mouse.Pix.MoveInDirectionScreen(90, 200, 10);
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+		
+<H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveInDirectionWindow">HKS.Mouse.Pix.MoveInDirectionWindow Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.Pix.MoveInDirectionWindow(Int Direction, Int Distance, Int Iterations = 1)</code></pre>
+	<p class="content_p2">Moves the mouse by the pixel amount specified by Distance in the direction specified by Direction (an angle 0 to 360 degrees, where 0 is right and the degrees go counterclockwise).</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move divided by the iteration must resolve in a value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	<p class="content_p2">NOTE: If the Active window is Iconic the function will have no effect.</p>
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move to 100,100 on the window
+HKS.Mouse.Pix.MoveOnWindow(100, 100);
+Sleep(1000);
+//move 100 Pixels down and right
+HKS.Mouse.Pix.MoveInDirectionWindow(-45, 100, 5);
+Sleep(1000);
+//move 200 Pixels to the right moving by 200, 10 iterations
+HKS.Mouse.Pix.MoveInDirectionWindow(0, 200, 10);
+Sleep(1000);
+//move 200 Pixels down,
+HKS.Mouse.Pix.MoveInDirectionWindow(-90, 200, 10);
+Sleep(1000);
+//move 200 Pixels left
+HKS.Mouse.Pix.MoveInDirectionWindow(180, 200, 10);
+Sleep(1000);
+
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">		
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.UV">HKS.Mouse.UV Class</h2>
+	<p class="content_p2">The Mouse.UV Class offers functions to move the mouse by UV value.</p>
+	<p class="content_p2">UV is a coordinate system use in graphical systems. UV defines a position in percentage form via a 0 through 1 value. 0,0 would be upper left. .5,.5 would be center. 1,1 would be bottom right.</p>
+	<p class="content_p2">Using UV you can be accurate in positioning the mouse on a window regardless of it's size. Or in a game regardless of the resolution it's running at. And so your code can work no matter the resolution chosen.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveOnScreen">HKS.Mouse.UV.MoveOnScreen Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.UV.MoveOnScreen(Float X, Float Y, Int Iterations = 0, Str Relative = "")</code></pre>
+	<p class="content_p2">Relative is optional. Passing anything but "" will make the move relative, else the move is absolute.</p>
+	<p class="content_p2">In Relative mode, X and Y are a direction vector. Moves the mouse in the direction specified by Deviation X, Deviation Y vector.</p>
+	<p class="content_p2">In Absolute mode, X and Y are Screen Coordinates in UV form. Moves the mouse at the specified coordinate.</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move converted to pixel divided by the iteration must resolve in a pixel value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	<p class="content_p2">NOTE: Coordinate 0,0 is the upper left corner of the Display the Mouse is currently in! This is usually the display a full screen game has locked to mouse onto.</p>
+	<p class="content_p2">NOTE: Coordinate 1,1 would be the bottom right of the display.
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//Move Center Screen
+HKS.Mouse.UV.MoveOnScreen(.5, .5);
+Sleep(1000);
+//move by 25%, to the left
+HKS.Mouse.UV.MoveOnScreen(-.25, 0, 10, true);
+Sleep(1000);
+//move by 25%, to the top
+HKS.Mouse.UV.MoveOnScreen(0, -.25, 10, "Relative");
+Sleep(1000);
+//move to 75%, 25%, somewhere at 25% of the upper right 
+HKS.Mouse.UV.MoveOnScreen(.75, .25, 10);
+Sleep(1000);
+//move 50% down relative
+HKS.Mouse.UV.MoveOnScreen(0, .5, 100, "Relative");
+Sleep(1000);
+//move to 25%, 75% on the window, bottom left 25% off the edge
+HKS.Mouse.UV.MoveOnScreen(.25, .75, 10);
+Sleep(1000);
+//move to the upper right
+HKS.Mouse.UV.MoveOnScreen(.25, .25, 100);
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+	<H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveOnWindow">HKS.Mouse.UV.MoveOnWindow Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.UV.MoveOnWindow(Float X, Float Y, Int Iterations = 1, Str Relative = "")</code></pre>
+	<p class="content_p2">Relative is optional. Passing anything but "" will make the move relative, else the move is absolute.</p>
+	<p class="content_p2">In Relative mode, X and Y are a direction vector. Moves the mouse in the direction specified by Deviation X, Deviation Y vector.</p>
+	<p class="content_p2">In Absolute mode, X and Y are Window Relative Coordinates in UV Form. Moves the mouse at the specified coordinate, 0,0 would be the upper left corner of the window.</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move converted to pixel divided by the iteration must resolve in a pixel value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	<p class="content_p2">NOTE: If the Active window is Iconic the function will have no effect.</p>
+	<p class="content_p2">NOTE: Coordinate 0,0 would be the top left of the window.
+	<p class="content_p2">NOTE: Coordinate 1,1 would be the bottom right of the window.
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//Move Center Window
+HKS.Mouse.UV.MoveOnWindow(.5, .5);
+Sleep(1000);
+//move by 25%, to the left
+HKS.Mouse.UV.MoveOnWindow(-.25, 0, 10, true);
+Sleep(1000);
+//move by 25%, to the top
+HKS.Mouse.UV.MoveOnWindow(0, -.25, 10, "Relative");
+Sleep(1000);
+//move to 75%, 25%, somewhere at 25% of the upper right 
+HKS.Mouse.UV.MoveOnWindow(.75, .25, 10);
+Sleep(1000);
+//move 50% down relative
+HKS.Mouse.UV.MoveOnWindow(0, .5, 100, "Relative");
+Sleep(1000);
+//move to 25%, 75% on the window, bottom left 25% off the edge
+HKS.Mouse.UV.MoveOnWindow(.25, .75, 10);
+Sleep(1000);
+//move to the upper right
+HKS.Mouse.UV.MoveOnWindow(.25, .25, 100);
+Sleep(1000);
+//move to the right of the window
+HKS.Mouse.UV.MoveOnWindow(-.25, .25, 100);
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+<H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveInDirectionScreen">HKS.Mouse.UV.MoveInDirectionScreen Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.UV.MoveInDirectionScreen(Int Direction, Float Distance, Int Iterations = 1)</code></pre>
+	<p class="content_p2">Moves the mouse by the fraction amount specified by Distance in the direction specified by Direction (an angle 0 to 360 degrees, where 0 is right and the degrees go counterclockwise).</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move converted to pixel divided by the iteration must resolve in a pixel value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	
+		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move to center of the screen
+HKS.Mouse.UV.MoveOnScreen(.5, .5);
+Sleep(1000);
+//move by 25% of the screen toward upper left
+HKS.Mouse.UV.MoveInDirectionScreen(135, .25, 5);
+Sleep(1000);
+//move right by 50% the screen width, 10 iterations
+HKS.Mouse.UV.MoveInDirectionScreen(0, .5, 10);
+Sleep(1000);
+//move by 50% of the height down,
+HKS.Mouse.UV.MoveInDirectionScreen(-90, .5, 10);
+Sleep(1000);
+//move left by 50% the screen width, 10 iterations
+HKS.Mouse.UV.MoveInDirectionScreen(180, .5, 10);
+Sleep(1000);
+//move up by 50% the screen height, 10 iterations
+HKS.Mouse.UV.MoveInDirectionScreen(90, .5, 10);
+Sleep(1000);
+    </code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+		
+<H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveInDirectionWindow">HKS.Mouse.UV.MoveInDirectionWindow Member Function</h2>
+	<pre><code class="JavaScript">HKS.Mouse.UV.MoveInDirectionWindow(Int Direction, Float Distance, Int Iterations = 1)</code></pre>
+	<p class="content_p2">Moves the mouse by the fraction amount specified by Distance in the direction specified by Direction (an angle 0 to 360 degrees, where 0 is right and the degrees go counterclockwise).</p>
+	<p class="content_p2">Iterations is the number of iterations it will take to reach the destination, this is similar to the Speed concept in AutoHotKey's mouse move function.</p>
+	<p class="content_p2">The actions takes 16 ms per iteration to perform.</p>
+	<p class="content_p2">NOTE: The distance to move converted to pixel divided by the iteration must resolve in a pixel value that is not a fraction else the mouse may stay in place because it can't move by a distance of 0.1 for example.</p>
+	<p class="content_p2">NOTE: If the Active window is Iconic the function will have no effect.</p>
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//move to center of the window
+HKS.Mouse.UV.MoveOnWindow(.5, .5);
+Sleep(1000);
+//move by 25% of the window toward upper left
+HKS.Mouse.UV.MoveInDirectionWindow(135, .25, 5);
+Sleep(1000);
+//move right by 50% the window width, 10 iterations
+HKS.Mouse.UV.MoveInDirectionWindow(0, .5, 10);
+Sleep(1000);
+//move by 50% of the height down,
+HKS.Mouse.UV.MoveInDirectionWindow(-90, .5, 10);
+Sleep(1000);
+//move left by 50% the window width, 10 iterations
+HKS.Mouse.UV.MoveInDirectionWindow(180, .5, 10);
+Sleep(1000);
+//move up by 50% the window height, 10 iterations
+HKS.Mouse.UV.MoveInDirectionWindow(90, .5, 10);
+Sleep(1000);
+</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">	
+	
+	
+	<H2 class="content_h2" id="CodingHKS.Process">HKS.Process Class</h2>
+	<p class="content_p2">The Process Class allows you to get information about the Active Process and the Active Window and the Active Control.</p>
+	
+	<H2 class="content_h2">HKS.Process Member Functions</h2>
+	<table class="func_table" width=100%>
+	<tr>
+		<td>
+			<pre id="CodingHKS.Process.GetProcessExe"><code class="JavaScript">HKS.Process.GetProcessExe()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the exe file with extension, eg: notepad.exe.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetProcessName"><code class="JavaScript">HKS.Process.GetProcessName()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Process Name, Basically the file without the extension, eg: notepad.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetProcessPath"><code class="JavaScript">HKS.Process.GetProcessPath()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the process path AND filename and extension, eg: C:\Windows\System32\notepad.exe</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetProcessID"><code class="JavaScript">HKS.Process.GetProcessID()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Process Id, a unique system identification number assigned to the process when it is started.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetActiveWindowClassName"><code class="JavaScript">HKS.Process.GetActiveWindowClassName()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Class Name for the Active Window of the process.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetActiveWindowTitle"><code class="JavaScript">HKS.Process.GetActiveWindowTitle()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Title/Caption of the Active Window of the process.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetActiveWindowhWnd"><code class="JavaScript">HKS.Process.GetActiveWindowhWnd()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Window Handle (hWnd) of the Active Window of the process.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetActiveControlName"><code class="JavaScript">HKS.Process.GetActiveControlName()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Control Name of the Active Control of the process.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetActiveControlText"><code class="JavaScript">HKS.Process.GetActiveControlText()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Control Text or Caption of the Active Control of the process.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.GetActiveControlhWnd"><code class="JavaScript">HKS.Process.GetActiveControlhWnd()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Window Handle (hWnd) of the Active Control of the process.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Process.IsWindowMine"><code class="JavaScript">HKS.Process.IsWindowMine()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns true if the Active Window is part of the HotKeySpeak User Interface. It is useful to know if you are running code from the Run Button in the UI or if the code it running legitimately in context of an application that has focus.</p>
+		</td>
+	</tr>
+	</table>
+	
+	<p class="content_p2">Example showing the result for every Member Function.</p>
+
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+OutputDebug("GetProcessExe:")
+OutputDebug(HKS.Process.GetProcessExe());
+OutputDebug("***********")
+OutputDebug("GetProcessName:")
+OutputDebug(HKS.Process.GetProcessName());
+OutputDebug("***********")
+OutputDebug("GetProcessPath:")
+OutputDebug(HKS.Process.GetProcessPath());
+OutputDebug("***********")
+OutputDebug("GetProcessID:")
+OutputDebug(HKS.Process.GetProcessID());
+OutputDebug("***********")
+OutputDebug("GetActiveWindowClassName:")
+OutputDebug(HKS.Process.GetActiveWindowClassName());
+OutputDebug("***********")
+OutputDebug("GetActiveWindowTitle:")
+OutputDebug(HKS.Process.GetActiveWindowTitle());
+OutputDebug("***********")
+OutputDebug("GetActiveWindowhWnd:")
+OutputDebug(HKS.Process.GetActiveWindowhWnd());
+OutputDebug("***********")
+OutputDebug("GetActiveControlName:")
+OutputDebug(HKS.Process.GetActiveControlName());
+OutputDebug("***********")
+OutputDebug("GetActiveControlText:")
+OutputDebug(HKS.Process.GetActiveControlText());
+OutputDebug("***********")
+OutputDebug("GetActiveControlhWnd:")
+OutputDebug(HKS.Process.GetActiveControlhWnd());
+OutputDebug("***********")
+OutputDebug("IsWindowMine:")
+OutputDebug(HKS.Process.IsWindowMine());
+OutputDebug("***********")
+</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+
+	<H2 class="content_h2" id="CodingHKS.Recognition">HKS.Recognition Class</h2>
+	<p class="content_p2">The Recognition Class allows you to get information related to the status of the Voice Recognition, such as sentences detected, commands detected and so on.</p>
+	
+	<H2 class="content_h2">HKS.Recognition Member Functions</h2>
+	<table class="func_table" width=100%>
+	
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.GetDictationText"><code class="JavaScript">HKS.Recognition.GetDictationText()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the dictation text as detected by the voice recognition system while in Dictation Mode.</p>
+			<p class="func_desc">See Dictation example for use.</p>
+		</td>
+	</tr>
+	
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.GetCommandsArray"><code class="JavaScript">HKS.Recognition.GetCommandsArray()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns an array of all the Commands that have been detected on the voice recognition process currently in progress.</p>
+			<p class="func_desc">See NOTE: in example for access.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.GetCommandString"><code class="JavaScript">HKS.Recognition.GetCommandString()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns an all the Commands that were detected  on the voice recognition process currently in progress.</p>
+			<p class="func_desc">All Commands are separated with the pipe | character .</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.GetConfidence"><code class="JavaScript">HKS.Recognition.GetConfidence()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the average Confidence Level of the voice recognition process currently in progress.</p>
+			<p class="func_desc">Note: This is an average over the last few commands and may not be an accurate representation for the current command. See GetConfidencesArray()</p>
+		</td>
+	</tr>
+	
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.GetConfidencesArray"><code class="JavaScript">HKS.Recognition.GetConfidencesArray()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns an array of Confidences for all the Commands that have been detected on the voice recognition process currently in progress.</p>
+			<p class="func_desc">See NOTE: in example for access.</p>
+			<p class="func_desc">See GetConfidenceThreshold.</p>
+			<p class="func_desc">See Confidence Level Override Example.</p>
+		</td>
+	</tr>
+	
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.GetConfidenceThreshold"><code class="JavaScript">HKS.Recognition.GetConfidenceThreshold()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns the Confidence Threshold as set in the Options so you can use it to refine you coded actions based on confidence.</p>
+			<p class="func_desc">When the average confidence level falls under this value, actions are not execute.</p>
+			<p class="func_desc">When the average confidence is above this value, actions are executed...</p>
+			<p class="func_desc">There are occasion where a specific command has a lower confidence than the average, but not enough so to cause the average to drop below the threshold and so the command may execute... The balancing act between word restrictions, fast and loose on the fly processing and noise may cause the system to think a noise is a valid command, but with a confidence not low enough to cause the average to drop. This is especially true if you defined one syllable words. You may override the system for such words and prevent misfiring.</p>
+			<p class="func_desc">That sound silly! You may ask yourself why the system uses an average confidence level as opposed to the actual word confidence available. The reason was determined during trial that the confidence drops when issuing a number of commands in a row, enough for the commands to be lower in confidence while the overall confidence is acceptable.</p>
+			<p class="func_desc">See NOTE: in example for access.</p>
+			<p class="func_desc">See Confidence Level Override Example.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.GetSentencesArray"><code class="JavaScript">HKS.Recognition.GetSentencesArray()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns an array of all the sentences that have been detected on the voice recognition process currently in progress.</p>
+			<p class="func_desc">See NOTE: in example for access.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.IsDictating"><code class="JavaScript">HKS.Recognition.IsDictating()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Returns true if the voice recognition system is in Dictation Mode, false if Not.</p>
+			<p class="func_desc">See Dictation example for use.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.Recognition.StartDictating"><code class="JavaScript">HKS.Recognition.StartDictating(Str "CallbackFunction()")</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Turns the Dictation Mode ON.</p>
+			<p class="func_desc">Dictation Mode turns OFF the Command System and will now recognize every word spoken by the user. This is used to allow speaking sentences that the user would normally type, like in a chat box for example.</p>
+			<p class="func_desc">The function takes a callback function but in a string fashion like SetTimer.</p>
+			<p class="func_desc">The callback function will be called for every word detected. Since the system is asynchronous this function is where you will do all the work to send the text to the game or application.</p>
+			<p class="func_desc">The callback function will also be called when Dictation Mode ends. You can use IsDictating() to see the context of the call.</p>
+			<p class="func_desc">Dictation Mode will turn off automatically when the user stops talking after having dictated a sentence, so basically is it ON for one sentence.</p>
+			<p class="func_desc">Note: If a request to turn on Dictation was made in the middle of a long series of commands, Dictation Mode will not turn ON right away, all existing commands in the queue be ignored and Dictation Mode will start when the user stops and restarts talking.</p>
+			<p class="func_desc">Note: The Hot Key system will be disabled while Dictation Mode is ON.</p>
+			<p class="func_desc">See Dictation example for use.</p>
+		</td>
+	</tr>
+	
+
+	</table>
+	
+	<p class="content_p2">Example Command Data.</p>
+
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//In Application Action Code
+function DebugCommands()
+{
+    OutputDebug("****************");
+    //CONFIDENCE
+    OutputDebug("Confidence: " + HKS.Recognition.GetConfidence());
+    OutputDebug("----------------");
+
+    //COMMANDS ARRAY
+    var arr = HKS.Recognition.GetCommandsArray();
+    var confarr = HKS.Recognition.GetConfidencesArray();
+    //NOTE: use .Length() for AHK array as opposed to .length for JS arrays
+    var NumCommands = arr.Length(); 
+    OutputDebug("Sequence Num Commands: " + NumCommands)
+    //NOTE: AHK array goes from 1 to Length() Inclusive, as opposed to javascript's 0 to length-1
+    var FinalCommandInSeries = arr[NumCommands];
+    var FinalCommandCondidence = confarr[NumCommands];
+    OutputDebug("Sequence Last Command: " + FinalCommandInSeries);
+    OutputDebug("Sequence Last Command Confidence: " + FinalCommandCondidence);
+    
+    OutputDebug("Sequence All Commands: ");
+    for(var i = 1; i<=NumCommands; i++)
+    {
+        OutputDebug(arr[i] + " Conf: " + confarr[i]);
+    }
+    OutputDebug("----------------");
+
+    //SENTENCES ARRAY
+    var arr = HKS.Recognition.GetSentencesArray();
+    //NOTE: use .Length() for AHK array as opposed to .length for JS arrays
+    var NumSentences = arr.Length(); 
+    OutputDebug("Sequence Num Sentences: " + NumSentences)
+    //NOTE: AHK array goes from 1 to Length() Inclusive, as opposed to javascript's 0 to length-1
+    var FinalSentenceInSeries = arr[NumSentences];
+    OutputDebug("Sequence Last Sentence: " + FinalSentenceInSeries);
+    OutputDebug("Sequence All Sentences: ");
+    for(var i = 1; i<=NumSentences; i++)
+    {
+        OutputDebug(arr[i])
+    }
+    OutputDebug("----------------");
+}
+
+//In Command and Command Context Actions that have Voice Recognition
+DebugCommands();
+
+</code></pre></td><td width=10%></td></tr></table>
+
+<p class="content_p2">Dictation Example.</p>
+
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//In Start Dictating Action Code
+HKS.Recognition.StartDictating("OnDictate()")
+function OnDictate()
+{
+    //OutputDebug(HKS.Recognition.GetDictationText());
+    //Select to start of line
+    Send("+{Home}")
+    //type it
+    Send(HKS.Recognition.GetDictationText())
+    //done?
+    if(HKS.Recognition.IsDictating() == 0) 
+    {
+        //done, send enter
+        Send("{Enter}")
+    }
+}
+</code></pre></td><td width=10%></td></tr></table>
+
+<p class="content_p2">Confidence Level Override Example.</p>
+
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//send 1 if "One" is spoken, "One" being a "not recommended" one syllable word, but this is a way around this 
+//Breathing in the microphone with the nose often makes the system think "One" has been said
+//This issue usually happens in the context of a single issued command
+//This code will check is the context is a single command and double check if the confidence level for the command specifically passes the threshold on its own
+
+//get the confidence array
+var confarr = HKS.Recognition.GetConfidencesArray();
+//the number of commands derived from the array length
+var NumCommands = confarr.Length();
+//is this a single command?
+if(NumCommands == 1)
+{
+    //only allow high confidence to take action, a true spoken "One"
+    var MyConfidence = confarr[NumCommands];
+    if(MyConfidence >= HKS.Recognition.GetConfidenceThreshold())
+    {
+        Send(1);
+    }
+}
+else
+{
+    //detected as part of a series of commands, it's safe to run
+    Send(1);
+}
+</code></pre></td><td width=10%></td></tr></table>
+
+	<img class="content_sepline" src="../images/sepline.png">
+	
+
+	<H2 class="content_h2" id="CodingHKS.Resource">HKS.Resource Class</h2>
+	<p class="content_p2">The Resource Class gives functions to manipulate Resource Items in the Application Tree-view.</p>
+	
+	<H2 class="content_h2">HKS.Resource Member Functions</h2>
+	</td>
+	<table class="func_table" width=100%>
+	<tr>
+		<td>
+			<pre id="CodingHKS.Resource.Fetch"><code class="JavaScript">HKS.Resource.Fetch(Str Resource)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Takes a resource from the tree-view and extracts it to a temporary file.</p>
+			<p class="func_desc">Returns the filename to the extracted resource, complete path and all.</p>
+		</td>
+	</tr>
+	
+	</table>
+	
+	<p class="content_p2">Example Using Fetch</p>
+
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+//the extracted sound resources
+var ActivateSound = ""; 
+var ReloadSound = ""; 
+var SwitchGunSound = ""; 
+//Define a Unique Function Name
+function OnSetup()
+{
+    //To safely do things without an error message poping up
+    try //Try to do this...
+    {
+        //Extract the Sound resources
+        ActivateSound = HKS.Resource.Fetch("confirm.wav");
+        ReloadSound = HKS.Resource.Fetch("reload.wav");
+        SwitchGunSound = HKS.Resource.Fetch("switch.wav");
+        //Play the sound when application gets focused
+        PlaySound(ActivateSound);
+    }
+    catch(e) //...catch any problems
+    {
+        //debug out at Level 3, Ignorable Error Level
+        HKS.Debug.WriteNL("", 3);
+        HKS.Debug.WriteNL("Exception:", 3);
+        HKS.Debug.WriteNL("Game OnSetup()", 3);
+        HKS.Debug.WriteNL("" + e, 3);
+    }
+}
+//Call Function
+OnSetup();
+
+//This function is called to play sound by various actions that need a clue that they triggered
+function PlayTheSound(sound)
+{
+    try
+    {
+        SoundPlay(sound ,"");
+    }
+    catch(e)
+    {
+    }
+}
+
+//In Reload Action
+PlayTheSound(ReloadSound);
+
+//In SwitchGun Action
+PlayTheSound(SwitchGunSound);
+</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+
+	
+	<H2 class="content_h2" id="CodingHKS.VoiceAgent">HKS.VoiceAgent Class</h2>
+	<p class="content_p2">The VoiceAgent Class allows you to access MS Voice Agent Text To Speech functions.</p>
+	
+	<H2 class="content_h2">HKS.VoiceAgent Member Functions</h2>
+	
+	<table class="func_table" width=100%>
+	<tr>
+		<td>
+			<pre id="CodingHKS.VoiceAgent.Say"><code class="JavaScript">HKS.VoiceAgent.Say(Str Text)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Speak the specified text.</p>
+			<p class="func_desc">Multiple calls will stack the sentences and be spoken one after the other.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.VoiceAgent.SayWait"><code class="JavaScript">HKS.VoiceAgent.SayWait(Str Text)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Speak the specified text and waits for it to be done speaking.</p>
+			<p class="func_desc">Your code will halt until completion.</p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.VoiceAgent.SayXML"><code class="JavaScript">HKS.VoiceAgent.SayXML(Str XMLText)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Speak the specified XML Text (Not a file but actual XML Text).</p>
+			<p class="func_desc">Multiple calls will stack the sentences and be spoken one after the other.</p>
+			<p class="func_desc">You can find the MS Voice Agent Text To Speech XML specifications <a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/ms717077%28v=vs.85%29.aspx">HERE</a></p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.VoiceAgent.SayXMLWait"><code class="JavaScript">HKS.VoiceAgent.SayXMLWait(Str XMLText)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Speak the specified XML (Not a file but actual XML Text) Text and waits for it to be done speaking.</p>
+			<p class="func_desc">Your code will halt until completion.</p>
+			<p class="func_desc">You can find the MS Voice Agent Text To Speech XML specifications <a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/ms717077%28v=vs.85%29.aspx">HERE</a></p>
+		</td>
+	</tr>
+	<tr>	
+		<td>
+			<pre id="CodingHKS.VoiceAgent.Stop"><code class="JavaScript">HKS.VoiceAgent.Stop()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Interrupts the current sentence being spoken by MS Voice Agent Text To Speech.</p>
+		</td>
+	</tr>
+	</table>
+	
+	<p class="content_p2">Example showing the result for every Member Function.</p>
+
+<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
+//JScript
+HKS.VoiceAgent.Say("Hello, I am the MS SAPI text To Speak System");
+OutputDebug("I'm Saying Hello");
+HKS.VoiceAgent.Say("How are you doing this fine day??");
+OutputDebug("I'll say How are you Next...");
+Sleep(8000);
+OutputDebug("Now I'll say I am Fine and You? and wait");
+HKS.VoiceAgent.SayWait("I am Fine and You?");
+OutputDebug("I just Said I am Fine and You...");
+Sleep(2000);
+
+xmlText = '';
+xmlText += '&lt;volume level="50"&gt;';
+xmlText += 'This text should be spoken at volume level fifty.';
+xmlText += '&lt;volume level="100"&gt;';
+xmlText += 'This text should be spoken at volume level one hundred.';
+xmlText += '&lt;/volume&gt;';
+xmlText += '&lt;/volume&gt;';
+HKS.VoiceAgent.SayXML(xmlText);
+OutputDebug("Doing some XML Text")
+
+xmlText = '';
+xmlText += '&lt;pitch middle="5"&gt;';
+xmlText += 'This text should be spoken at pitch five.';
+xmlText += '&lt;pitch middle="-5"&gt;';
+xmlText += 'This text should be spoken at pitch zero.';
+xmlText += '&lt;/pitch&gt;';
+xmlText += '&lt;/pitch&gt;';
+HKS.VoiceAgent.SayXML(xmlText);
+OutputDebug("And More after that")
+
+Sleep(8000)
+xmlText = '';
+xmlText += 'I am going to Spell out Hello.';
+xmlText += '&lt;spell&gt;Hello&lt;/spell&gt;';
+OutputDebug("Now I'll say more and wait")
+HKS.VoiceAgent.SayXMLWait(xmlText);
+OutputDebug("Done!");
+</code></pre></td><td width=10%></td></tr></table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.WinAPI">HKS.WinAPI Class</h2>
+	<p class="content_p2">The WinAPI Class has WinAPI Functions defined that may be useful writing rules.</p>
+	<p class="content_p2">NOTE: Some functions don't have the same number of arguments as the original Microsoft documentation, still the information from the original source will be linked as reference.</p>
+	<p class="content_p2">NOTE: Some of the WinAPI functions that have a AutoHotKey Equivalent may not be included.</p>
+	<p class="content_p2">NOTE: Functions that only apply to the calling thread are not included as they will only affect the HotKeySpeak UI.</p>
+	<p class="content_p2">NOTE: Functions that were judged not useful or too complex are not included.</p>
+	<p class="content_p2">The WinAPIs here are split by the same categories as Microsoft Reference Pages which sometimes has functions in odd places.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2" id="CodingHKS.WinAPI.KB">HKS.WinAPI.KB Class</h2>
+	<p class="content_p2">The WinAPI.KB Class has WinAPI functions mostly related to keyboard manipulation.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2">HKS.WinAPI.KB Member Functions</h2>
+	<table class="func_table" width=100%>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.KB.EnableWindow"><code class="JavaScript">HKS.WinAPI.KB.EnableWindow(Int hWnd, Int bEnable)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646291(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.KB.GetAsyncKeyState"><code class="JavaScript">HKS.WinAPI.KB.GetAsyncKeyState(Int vKey)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646293(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.KB.GetKeyboardType"><code class="JavaScript">HKS.WinAPI.KB.GetKeyboardType(Int nTypeFlag)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724336(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.KB.GetKeyState"><code class="JavaScript">HKS.WinAPI.KB.GetKeyState(Int nVirtKey)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646301(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.KB.IsWindowEnabled"><code class="JavaScript">HKS.WinAPI.KB.IsWindowEnabled(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646303(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.KB.VkKeyScan"><code class="JavaScript">HKS.WinAPI.KB.VkKeyScan(Char ch)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646332(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.KB.VkKeyScanEx"><code class="JavaScript">HKS.WinAPI.KB.VkKeyScanEx(Char ch, Int dwhkl)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646332(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    </table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.WinAPI.Mouse">HKS.WinAPI.Mouse Class</h2>
+	<p class="content_p2">The WinAPI.Mouse Class has WinAPI functions mostly related to mouse functions.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2">HKS.WinAPI.Mouse Member Functions</h2>
+	<table class="func_table" width=100%>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.DragDetect"><code class="JavaScript">HKS.WinAPI.Mouse.DragDetect(Int hWnd, Int x, Int y)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646256(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.GetCapture"><code class="JavaScript">HKS.WinAPI.Mouse.GetCapture()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646257(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.GetDoubleClickTime"><code class="JavaScript">HKS.WinAPI.Mouse.GetDoubleClickTime()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646258(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.mouse_event"><code class="JavaScript">HKS.WinAPI.Mouse.mouse_event(Int dwFlags, Int dx, Int dy, Int dwData)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646260(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.ReleaseCapture"><code class="JavaScript">HKS.WinAPI.Mouse.ReleaseCapture()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646261(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.SetCapture"><code class="JavaScript">HKS.WinAPI.Mouse.SetCapture(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646262(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.SetDoubleClickTime"><code class="JavaScript">HKS.WinAPI.Mouse.SetDoubleClickTime(Int uInterval)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646263(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Mouse.SwapMouseButton"><code class="JavaScript">HKS.WinAPI.Mouse.SwapMouseButton(Int fSwap)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646264(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    </table>
+	<img class="content_sepline" src="../images/sepline.png">
+
+	<H2 class="content_h2" id="CodingHKS.WinAPI.Win">HKS.WinAPI.Win Class</h2>
+	<p class="content_p2">The WinAPI.Win Class has WinAPI functions mostly related to window manipulation.</p>
+	<p class="content_p2">All the functions require a Window Handle, referred to as a hWnd, such handle is available in the HKS.Process class and some AutoHotKey functions.</p>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	<H2 class="content_h2">HKS.WinAPI.Win Member Functions</h2>
+	<table class="func_table" width=100%>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.AllowSetForegroundWindow"><code class="JavaScript">HKS.WinAPI.Win.AllowSetForegroundWindow(Int dwProcessId)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632668(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.AnimateWindow"><code class="JavaScript">HKS.WinAPI.Win.AnimateWindow(Int hWnd, Int dwTime, Int dwFlags)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632669(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.AnyPopup"><code class="JavaScript">HKS.WinAPI.Win.AnyPopup()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632670(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr> 
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.ArrangeIconicWindows"><code class="JavaScript">HKS.WinAPI.Win.ArrangeIconicWindows(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632671(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.BeginDeferWindowPos"><code class="JavaScript">HKS.WinAPI.Win.BeginDeferWindowPos(Int nNumWindows)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632672(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.BringWindowToTop"><code class="JavaScript">HKS.WinAPI.Win.BringWindowToTop(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632673(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.ChildWindowFromPoint"><code class="JavaScript">HKS.WinAPI.Win.ChildWindowFromPoint(Int hWnd, Int x, Int y)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632676(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.ChildWindowFromPointEx"><code class="JavaScript">HKS.WinAPI.Win.ChildWindowFromPointEx(Int hWnd, Int x, Int y, Int uFlags)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632677(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.CloseWindow"><code class="JavaScript">HKS.WinAPI.Win.CloseWindow(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632678(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.DeferWindowPos"><code class="JavaScript">HKS.WinAPI.Win.DeferWindowPos(Int hWinPosInfo, Int hWnd, Int hWndInsertAfter, 
+                              Int x, Int y, Int cx, Int cy, Int uFlags)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632681(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.DestroyWindow"><code class="JavaScript">HKS.WinAPI.Win.DestroyWindow(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632682(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.EndDeferWindowPos"><code class="JavaScript">HKS.WinAPI.Win.EndDeferWindowPos(Int hWinPosInfo)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633440(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.EndTask"><code class="JavaScript">HKS.WinAPI.Win.EndTask(Int hWnd, Int fShutDown, Int fForce)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633492(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.FindWindow"><code class="JavaScript">HKS.WinAPI.Win.FindWindow(Str lpClassName, Str lpszWindowName)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633499(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.FindWindowEx"><code class="JavaScript">HKS.WinAPI.Win.FindWindowEx(Int hwndParent, Int hwndChildAfter, 
+                            Str lpClassName, Str lpszWindowName)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633500(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetAncestor"><code class="JavaScript">HKS.WinAPI.Win.GetAncestor(Int hWnd, Int gaFlags)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633502(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetDesktopWindow"><code class="JavaScript">HKS.WinAPI.Win.GetDesktopWindow()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633504(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetForegroundWindow"><code class="JavaScript">HKS.WinAPI.Win.GetForegroundWindow()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633505(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetLastActivePopup"><code class="JavaScript">HKS.WinAPI.Win.GetLastActivePopup(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633507(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetNextWindow"><code class="JavaScript">HKS.WinAPI.Win.GetNextWindow(Int hWnd, Int wCmd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633509(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetParent"><code class="JavaScript">HKS.WinAPI.Win.GetParent(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633510(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetShellWindow"><code class="JavaScript">HKS.WinAPI.Win.GetShellWindow()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633512(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetSysColor"><code class="JavaScript">HKS.WinAPI.Win.GetSysColor(Int nIndex)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724371(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetTopWindow"><code class="JavaScript">HKS.WinAPI.Win.GetTopWindow(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633514(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.GetWindow"><code class="JavaScript">HKS.WinAPI.Win.GetWindow(Int hWnd, Int uCmd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633515(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.IsChild"><code class="JavaScript">HKS.WinAPI.Win.IsChild(Int hWndParent, Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633524(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.IsHungAppWindow"><code class="JavaScript">HKS.WinAPI.Win.IsHungAppWindow(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633526(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.IsIconic"><code class="JavaScript">HKS.WinAPI.Win.IsIconic(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633527(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.IsWindow"><code class="JavaScript">HKS.WinAPI.Win.IsWindow(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633528(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.IsWindowUnicode"><code class="JavaScript">HKS.WinAPI.Win.IsWindowUnicode(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633529(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.IsWindowVisible"><code class="JavaScript">HKS.WinAPI.Win.IsWindowVisible(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633530(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.IsZoomed"><code class="JavaScript">HKS.WinAPI.Win.IsZoomed(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633531(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.MoveWindow"><code class="JavaScript">HKS.WinAPI.Win.MoveWindow(Int hWnd, Int x, Int y, 
+                          Int nWidth, Int nHeight,Int bRepaint)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633534(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.OpenIcon"><code class="JavaScript">HKS.WinAPI.Win.OpenIcon(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633535(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.RealChildWindowFromPoint"><code class="JavaScript">HKS.WinAPI.Win.RealChildWindowFromPoint(Int hWnd, Int x, Int y)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633537(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.SetForegroundWindow"><code class="JavaScript">HKS.WinAPI.Win.SetForegroundWindow(Int hWnd)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633539(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.SetLayeredWindowAttributes"><code class="JavaScript">HKS.WinAPI.Win.SetLayeredWindowAttributes(Int hWnd, Int hWndInsertAfter, 
+                                          Int crKey, Int bAlpha, Int dwFlags)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633540(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.SetParent"><code class="JavaScript">HKS.WinAPI.Win.SetParent(Int hWndChild, Int hWndNewParent)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633541(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.SetWindowPos"><code class="JavaScript">HKS.WinAPI.Win.SetWindowPos(Int hWnd, Int hWndInsertAfter, 
+                            Int x, Int y, Int cx, Int cy, Int uFlags)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633545(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.SetWindowText"><code class="JavaScript">HKS.WinAPI.Win.SetWindowText(Int hWnd, Str lpString)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633546(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.ShowOwnedPopups"><code class="JavaScript">HKS.WinAPI.Win.ShowOwnedPopups(Int hWnd, Int fShow)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633547(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.ShowWindow"><code class="JavaScript">HKS.WinAPI.Win.ShowWindow(Int hWnd, Int nCmdShow)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633548(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.ShowWindowAsync"><code class="JavaScript">HKS.WinAPI.Win.ShowWindowAsync(Int hWnd, Int nCmdShow)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633549(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.SoundSentry"><code class="JavaScript">HKS.WinAPI.Win.SoundSentry()</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa969269(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr> 
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.SwitchToThisWindow"><code class="JavaScript">HKS.WinAPI.Win.SwitchToThisWindow(Int hWnd, Int fAltTab)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633553(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.WindowFromPhysicalPoint"><code class="JavaScript">HKS.WinAPI.Win.WindowFromPhysicalPoint(Int x, Int y)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa969270(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    <tr>
+		<td>
+			<pre id="CodingHKS.WinAPI.Win.WindowFromPoint"><code class="JavaScript">HKS.WinAPI.Win.WindowFromPoint(Int x, Int y)</code></pre>
+		</td>
+		<td width=100%>
+			<p class="func_desc"><a style="text-decoration:none; color:#89CE46" target="_blank" href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms633558(v=vs.85).aspx">WinAPI Help Reference</a></p>
+		</td>
+	</tr>
+    </table>
+	<img class="content_sepline" src="../images/sepline.png">
+	
+	
+
+	
+	
+	
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	
+	
+	
+	
+	</body>
+</html>

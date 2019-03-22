@@ -1,0 +1,325 @@
+<html>
+	<head>
+		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">
+		<link rel="stylesheet" type="text/css" href="styles.css?c=0010">
+	</head>
+	
+	
+	<body class="mainpage" onload="OnLoad()" onresize="OnResize()">
+		<table class="maintable" width="100%" height="100%" >
+			<tr width="100%" valign="top">
+				<td>
+					<iframe src="header.html" scrolling="no" width="100%" height="125px" frameBorder="0" style="padding:0; margin:0;"></iframe>
+				</td>
+			</tr>
+			<tr width="100%">
+				<td  valign="top" height="100%">
+					<table class="middletable" width="100%" height="100%">
+						<tr width="200px" height="100%" valign="top">
+							<td style="padding-left:30px;" class="leftpane" width="200px" height="100%">
+								<table class="searchpanetable" width="200px" height="100%">
+									<tr width="200px" >
+										<td class="searchEB" width="200px">
+											<input width="200px" id="searchEB" class="searchEB" type="text">
+										</td>
+									</tr>
+									<tr  width="200px" height="100%">
+										<td class="searchTV" width="200px" height="100%" valign="top">
+											<div id="treeview" class="treeview" height="100%"></div>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td style="padding-left:30px;" class="rightpane" width="100%" height="100%">
+								<iframe id="contentFrame" src="contentFrame.html" width="100%" height="100%" frameBorder="0" style="padding:0; margin:0;"></iframe>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" HEIGHT="25px">
+					<iframe src="footer.html" scrolling="no" width="100%" height="25px" frameBorder="0" style="padding:0; margin:0;"></iframe>
+				</td>
+			</tr>
+		</table>
+
+	</body>
+</html>
+<script type="text/javascript" src="treeviewdata.js?c=0040"></script>
+<script>
+
+var treeviewRoot = document.getElementById('treeview');
+var searchEB = document.getElementById('searchEB');
+var contentFrame = document.getElementById('contentFrame');
+var firstFound = undefined;
+searchEB.onchange   = OnSearchEBChange;
+searchEB.onkeypress = OnSearchEBChange;
+searchEB.onpaste    = OnSearchEBChange;
+searchEB.oninput    = OnSearchEBChange;
+
+function OnLoad()
+{
+
+	var url = "" + window.location;
+	var args = url.split(/[=&]/);
+	var Topic = "" + url.split("=")[1];
+	var Topic = "" + args[1];
+	var Code = "" + args[3];
+	//var Topic = "" + url.split("=")[1]
+	OnResize();
+	AddToTreeview(treeviewdata,treeviewRoot)
+
+	if(Code !== "")
+	{
+		TVFindItemTopic(treeviewRoot,Code.toLowerCase());
+		
+	}
+	if(firstFound !== undefined)
+	{
+		firstFound.scrollIntoView(true)
+		firstFound.onclick(null)
+		searchEB.value = firstFound.getAttribute("ItemText");
+
+	    OnSearchEBChange({e: 13});
+		return;
+	}
+	if(Topic !== "")
+	{
+		TVFindItemTopic(treeviewRoot,Topic.toLowerCase());
+		
+	}
+	if(firstFound !== undefined)
+	{
+		firstFound.scrollIntoView(true)
+		firstFound.onclick(null)
+		searchEB.value = firstFound.getAttribute("ItemText");
+
+	    OnSearchEBChange({e: 13});
+	}
+    //alert(Topic); 
+}
+function OnResize()
+{
+	treeviewRoot.style.height = ""+window.innerHeight-(200)+"px";
+}
+
+function OnSearchEBChange(e)
+{
+
+	text = "" + searchEB.value;
+	TVItemDeselectAll(treeviewRoot)
+	CollapseTVHierarchy(treeviewRoot)
+	firstFound = undefined;
+
+	if(text !== "")
+	{
+		TVFindItemText(treeviewRoot,text.toLowerCase());
+	}
+	if(firstFound !== undefined)
+	{
+		
+		ExpandTVHierarchy(firstFound)
+		firstFound.scrollIntoView(true)
+		if(e)
+		{
+			if(e.keyCode == 13)
+			{
+				firstFound.onclick(null);
+				searchEB.value = firstFound.getAttribute("ItemText");
+
+			}
+		}
+	}
+	
+}
+
+
+function CollapseTVHierarchy(TVItem)
+{
+	
+	
+	if(TVItem)
+	{
+		if(TVItem.style)
+		{
+			if((TVItem.parentElement.className !== "treeview" && TVItem.className !== "treeview"))
+			{
+				TVItem.style.display = "none";
+				//console.log(TVItem)
+			}
+		}
+	}
+	
+	for(var i in TVItem.children)
+	{
+		var item = TVItem.children[i];
+		CollapseTVHierarchy(item)
+	}
+	
+	
+}
+function ExpandTVHierarchy(TVItem)
+{
+	for(var i in TVItem.children)
+	{
+		var item = TVItem.children[i];
+		if(item.style !== undefined)
+		{
+			item.style.display = "block";
+		}
+	}
+	
+	if(TVItem)
+	{
+		if(TVItem.style)
+		{
+			TVItem.style.display = "block";
+			if(TVItem.parentElement.className === "treeviewitem" || TVItem.parentElement.className === "treeview")
+			{
+				ExpandTVHierarchy(TVItem.parentElement);
+			}
+		}
+	}
+}
+function TVFindItemText(ThisItem,text)
+{
+//console.log("TVFindItemText");
+	if(ThisItem.getAttribute !== undefined)
+	{
+		var str = "" + ThisItem.getAttribute("ItemSearch")
+		//console.log(str);
+		if(str.indexOf(text)>-1)
+		{
+			if(firstFound === undefined)
+			{
+				firstFound = ThisItem;
+				
+			}
+			else if(str == text && "" + firstFound.getAttribute("ItemSearch") != text)
+			{
+				firstFound = ThisItem;
+			}
+			//console.log("found----------------------" + str);
+			TVItemSelect(ThisItem);
+			ExpandTVHierarchy(ThisItem);
+			//firstFound.scrollIntoView(true)
+		}
+		for(var i in ThisItem.children)
+		{
+			TVFindItemText(ThisItem.children[i],text);
+		}
+	}
+}
+function TVFindItemTopic(ThisItem,topic)
+{
+	if(ThisItem.getAttribute !== undefined)
+	{
+		var str = "" + ThisItem.getAttribute("ItemTopic")
+		if(str === topic)
+		{
+			if(firstFound === undefined)
+			{
+				firstFound = ThisItem;
+			}
+			TVItemSelect(ThisItem);
+			ExpandTVHierarchy(ThisItem);
+		}
+		for(var i in ThisItem.children)
+		{
+			TVFindItemTopic(ThisItem.children[i],topic);
+		}
+	}
+}
+function TVItemDeselectAll(ThisItem)
+{
+	TVItemDeselect(ThisItem)
+	for(var i in ThisItem.children)
+	{
+		TVItemDeselectAll(ThisItem.children[i]);
+	}
+}
+function TVItemDeselect(TVItem)
+{
+	if(TVItem.className !== undefined)
+	{
+		TVItem.className = TVItem.className.replace(" selected", "");
+	}
+}
+function TVItemSelect(TVItem)
+{
+	if(TVItem.className !== undefined)
+	{
+		TVItem.className = TVItem.className.replace(" selected", "");
+		TVItem.className = TVItem.className + " selected";
+		
+	}
+}
+
+function ContentGoto(url)
+{
+	//console.log(url)
+	contentFrame.src=url
+	//contentFrame.contentWindow.location.reload(true);
+	//contentFrame.document.location.href=url; //navigate to url
+}
+
+function OnTVItemClick(e)
+{
+	TVItemDeselectAll(treeviewRoot);
+	ContentGoto(this.getAttribute("ItemUrl"))
+	for(var i in this.children)
+	{
+		var item = this.children[i];
+		if(item.style !== undefined)
+		{
+			if(item.style.display === "none")
+			{
+				item.style.display = "block";
+				
+			}
+			else
+			{
+				item.style.display = "none";
+			}
+		}
+	}
+	TVItemSelect(this);
+	if(e !== null) 
+	{
+		searchEB.value = this.getAttribute("ItemText");
+		e.stopPropagation();
+	}
+}
+var TVAddRecurseCount = 0;
+function AddToTreeview(arrItems,TVParent)
+{
+	
+	TVAddRecurseCount++;
+	if(arrItems.length)
+	{
+		TVParent.innerHTML = TVParent.innerHTML.replace("&nbsp;&nbsp;&nbsp;","&#9662;");;
+		for(var i in arrItems)
+		{
+			var item = arrItems[i];
+			var ItemText = item[0];
+			var ItemTopic = item[1];
+			var ItemUrl = item[2];
+			var ItemChildren = item[3];
+			TVItem = document.createElement('div');
+			TVItem.innerHTML = "&nbsp;&nbsp;&nbsp;" + ItemText;
+			TVItem.setAttribute("ItemText",ItemText)
+			TVItem.setAttribute("ItemSearch",ItemText.toLowerCase())
+			TVItem.setAttribute("ItemTopic",ItemTopic.toLowerCase())
+			TVItem.setAttribute("ItemUrl",ItemUrl)
+			TVItem.setAttribute('class', "treeviewitem");
+			if(TVAddRecurseCount>1) TVItem.style.display = "none";
+			TVItem.onclick = OnTVItemClick;
+			TVParent.appendChild(TVItem);
+			AddToTreeview(ItemChildren,TVItem)
+		}
+	}
+	TVAddRecurseCount--;
+}
+</script>

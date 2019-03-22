@@ -1,0 +1,191 @@
+<html>
+	<head>
+	    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">
+		<link rel="stylesheet" type="text/css" href="../styles.css?c=0009">
+	</head>
+	<body class="content">
+<H1 class="content_h1" id="Introduction">Introduction</h1>
+	<p class="content_p1">This program is the hard work of one aging gamer and developer who has lost a lot of his finger flexibility, getting old sucks.</p>
+	<p class="content_p1">When I started with gaming in the early 90's I was a pretty good, my reflexes were above average and I ruled most games I played.</p>
+	<p class="content_p1">Going back into gaming, I found myself lacking the finger flexibility and also the memory to hit the right key at the right time... without hitting something else at the same time.</p>
+	<p class="content_p1">Today is a a glorious day for gaming but for people like me a lot of it is ruined by our disabilities, so I decided to make a program to compensate so I could at least be a little more competitive as opposed to getting slaughtered by them darn kids!</p>
+<img class="content_sepline" src="../images/sepline.png">
+
+
+<H1 class="content_h1" id="HotKeySpeak">Hot Key Speak</h1>
+	
+	<p class="content_p1">Hot Key Speak was initially written in order to help people with a loss of finger flexibility and allow them to use their voice to compensate. The idea is that I could control my player with wasd for example and ask the system to reload my gun, or to switch weapons or to throw a grenade.</p>
+
+	<p class="content_p1">I needed a system that was local to the PC and fast enough to react in a respectable amount of time.</p>
+	
+	<p class="content_p1">MS SAPI provided the answer to voice recognition and AutoHotKey provided the means to control the game.</p>
+	
+	<p class="content_p1">I started with a proof of concept, using some code I found on the AutoHotKey forum that allowed setting up MS SAPI to detect keywords and map them to keystrokes.</p>
+	<p class="content_p1">I wrote a small program that would define words and keys to send for my favorite multi-player game and it worked beautifully but in a limited fashion.</p>
+	<p class="content_p1">Then I got another game and created another version of the code for that game... things started to fall apart because that other game required more flexibility and context based action. It became clear that my system needed to do more things and react more intelligently. The commands had to be defined in such a way that I could have a varying degree of context.</p>
+	<p class="content_p1">One problem I hit was the number of commands I had to add... as many actions would essentially be the same wording (in concept) in game, for the system I had I could not have the same word do multiple things. The result was a ridiculous number of global commands, most of which I could not remember in game.</p>
+	<p class="content_p1">Another problem was that my generic send method was not enough in many cases, I needed to do more, the actions needed to do more, they needed logic to execute, not just sending keystrokes blindly.</p>
+	<p class="content_p1">Another problem was that I needed to batch actions as on numerous occasions I would need to tell the system to do a number of things in one sentence, like reload, switch guns, power shield, reload, switch guns. And doing this with long sentences was impossible, and having to wait for the recognition system to figure things out from the huge list before I issued the next command was problematic..</p>
+	<p class="content_p1">Finally the last problem was that I needed a single program to handle multiple games. I simply could not have a half dozen AutoHotKey Scripts, one for every game, each with their own speech rules and code. Too much of a hassle to start the right one, close it and start another AHK script every time I switched games. Plus if I made the error of leaving another script running it would interfere with the other, specifically on the MS SAPI level.</p>
+<img class="content_sepline" src="../images/sepline.png">
+	
+<H1 class="content_h1" id="Features">Features</h1>
+	<p class="content_p1">After almost a year of writing code and testing concept I finally got something that has all the features that will allow anyone to write Voice Activated Scripts for almost any game</p>
+	<table class="func_table" width=100%>
+	<tr>
+		<td width=17%>
+			<p class="func_desc">Application Detection</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The program detects the application/game that is active for you. You don't have to worry about application context.</p>
+		</td>
+	</tr>
+	<tr>
+		<td width=17%>
+			<p class="func_desc">Window Context</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The program detects the active window for you. You can define what Window a context applies to.</p>
+		</td>
+	</tr>
+	<tr>
+		<td width=17%>
+			<p class="func_desc">Voice Recognition</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The program allows you to define what words or sentences trigger an event.</p>
+		</td>
+	</tr>
+	</tr>
+	<tr>
+		<td width=17%>
+			<p class="func_desc">Hot Key Definition</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The program allows you to define what hot keys trigger an event.</p>
+		</td>
+	</tr>
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Command Context</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The program allows you to define command context which allows defining actions that are only applicable in certain situations and so you can use the same words or hot keys to do multiple things.</p>
+		</td>
+	</tr>
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Improved MS SAPI features</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The program allows you to define voice rules and can perform actions while you are speaking.  Commands can run as soon as the system is sure enough of what you said without you needing to stop talking. The command sentences you define in the rule allow for multiple utterances. Commands will be detected even if they are mixed in with a frustration rant... Believe me I made sure of it :)</p>
+		</td>
+	</tr>
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Batched Commands</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The program allows you issue many orders in one sentence, they will be performed one after the other as the system recognizes the orders given</p>
+		</td>
+	</tr>
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Discord Compatible</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Matching Hold To Speak system so you can talk with friends without the system being active.</p>
+		</td>
+	</tr>
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Coded Actions (JavaScript)</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">Well actually JScript, the system allows you to code actions using a JavaScript form of the AutoHotKey API as well as other APIs included in the package.</p>
+			<p class="func_desc">Every action has code associated with it which allows you to define the behavior in context of the commands issued.</p>
+		</td>
+	</tr>
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Rule Sharing</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">You can share game rules and tool rules with friends.</p>
+		</td>
+	</tr>
+	
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Testing</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The system allows you to test the hot keys and the voice recognition without the target game running.</p>
+		</td>
+	</tr>
+	</tr>
+		<tr>
+		<td width=17%>
+			<p class="func_desc">Debugging</p>
+		</td>
+		<td width=100%>
+			<p class="func_desc">The system allows you run the code you wrote for actions without the target game running. The system also has a console window which allows you to output information either from your code or by directly typing in the console.</p>
+		</td>
+	</tr>
+	</table>
+	<p class="content_p1">HotKeySpeak's intent with regards to Gaming is NOT to give you an easy way to create cheating code for game, the initial intent of this program was to have a system that would easily allow people to compensate for their disabilities, thought ultimately this system can also be used to improve your gaming performance. Initially, with the system only responding to voice, there would be no way this system would give anyone the upper hand, but since I added the Hot Keys this has changed... On the other hand it can also be used to add features the game developers forgot, like key re-assignment...</p>
+
+<img class="content_sepline" src="../images/sepline.png">
+
+	<H1 class="content_h1" id="AutoHotKey">AutoHotKey</h1>
+	<p class="content_p1">This program was written entirely with AutohotKey, link at the bottom of the page.</p>
+	<p class="content_p1">AutoHotKey is a free to use coding environment specifically designed to control other applications.</p>
+	<p class="content_p1">HotKeySpeak runs AutoHotKey code through JavaScript, with a small variation on the language, the techniques found on the AutoHotKey forum should still apply with slight modifications. You can visit the AutoHotKey Forum, link at the bottom of the page.</p>
+	<p class="content_p1">HotKeySpeak's intent with regards to AutoHotKey is to simplify writing AHK code for games and not to circumvent or denigrate this great tool. At the time most of the code was written, AHK V2 was still in Beta.</p>
+<img class="content_sepline" src="../images/sepline.png">
+
+	<H1 class="content_h1" id="KnownIssues">Known Issues</h1>
+	<p class="content_p1">You do your best but there's always something....</p>
+	<p class="content_p1">Occasional Interference with copy and paste with Notepad++ where Notepad++ Pastes [NYL] instead of clipboard content - Fix, Restart HotKeySpeak.</p>
+	<p class="content_p1">Residual speech rule remain active when Application Context changes - Rare, MS SAPI will use the old rule for the first sentence in the new context. The result will be a failure to recognize the first spoken command in this new application context. - Fix, repeat the command. - Fix, this seems to be Microphone Dependent for some reason, so switching microphone may help.</p>
+	<p class="content_p1">HotKeySpeak stops recognizing voice commands entirely, - Tip, Before starting the game, CTRL + CLICK the application rule in the tree-view and do a test command to make sure the system works beforehand... - Fix, Restart the program. Unplug-reconnect the Mic and restart the program. Run MS SAPI from the options dialog and perform microphone setup.  Make sure you did not disable the speech recognition system, see the options window.</p>
+	<p class="content_p1">Poor recognition, - Tip, run MS SAPI from the options dialog and perform microphone setup and training and ensure the level for the Mic is proper.  If you have 2 microphones, make sure that MS SAPI is not using the wrong one.</p>
+	<p class="content_p1">Actions trigger and I said nothing. - Reason, you may have a noisy setup or you may be playing the game over the speakers and the microphone is picking it up, ambient noise may cause false recognitions for rules using simple one syllable words, you may need to tweak the rule code to bypass the global confidence level, see the HKS.Recognition Example code for overriding confidence level. You may need to use the Recognize When Key is down if your setup is noisy, see the options window.</p>
+<img class="content_sepline" src="../images/sepline.png">
+
+
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+	<p class="content_p2"/>
+
+	</body>
+</html>
