@@ -16,18 +16,18 @@
 	<p class="content_p1">The language does have many AutoHotKey functions implemented, though not all of them have been tested.</p>
 	<p class="content_p1">Pressing F1 or Hitting the ? Icon in the Action Dialog with a valid function selected in the Code Box will bring Context Help on the function selected.</p>
 	
-	<img class="content_screenshot" src="../images/Codebox.png">
+	<img class="content_screenshot" src="../Images/Codebox.png">
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingCodeBoxTools">Code Box Tools</h2>
 	<p class="content_p2">The tool ribbon under the code box allows you to test and edit the code.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHowItWorks">How It Works</h2>
 	<p class="content_p2">Applications in the tree-view have a set of rules, actions, that define Hot Keys, Speech Rules and code to execute when the action is activated. Each application has it's own JScript Interpreter associated with it.</p>
@@ -35,7 +35,7 @@
 	<p class="content_p2">When an action is activated, its code box code is loaded in the Active Script for the Application and the code is executed.</p>
 	<p class="content_p2">All you need to do is create a function that will encapsulate the code you wish to execute and call that function.</p>
 	<p class="content_p2">Ultimately you could do without a function and simply have the code in line, but having a function offers the ability to scope the variables your code requires and limit conflicts and have a safer more stable program.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<H2 class="content_h2" id="CodingTesting">Testing</h2>
@@ -43,7 +43,7 @@
 	<p class="content_p2">In this mode the Hot Keys and Voice Recognition will activate the tree-view items as it would in the game, however the action code will not run. You have to manually run the code with the code tool ribbon mentioned above.</p>
 	<p class="content_p2">A good tip is to use Notepad as a test program to test things live, simply change the Application root item to use notepad.</p>
 	<p class="content_p2">Occasionally the JScript interpreter will fail silently if you call an non existing function. TIP: Select the function in the code editor and Press F1, if the function exists it will pop up in the help. Make sure you respected case sensitivity.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingProperFunctionSetup">Proper Function Setup</h2>
 	<p class="content_p2">In these examples, you see the code that defines what happens for a Reload Action for a game...</p>
@@ -64,7 +64,7 @@ function DoReload()
 //Call Function
 DoReload();
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<p class="content_p2">One useful trick is to define a nameless function and calling it at the same time. Some may find it ugly but the method allows copy pasting a function without care of duplicates while preserving the variable scoping ability...</p>
 		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
@@ -79,7 +79,7 @@ DoReload();
     }
 })();
 	</code></pre></td><td width=10%></td></tr></table>	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<p class="content_p2">Finally simply calling the desired code to perform the action can be done in line. Beware this may result in odd behaviors with other code elsewhere as variables created at this level are global.</p>
 		<table width=100%><tr><td width=10%></td><td width=80%><pre><code class="JavaScript">
@@ -92,7 +92,7 @@ catch(e) //...catch any problems
 {
 }
 	</code></pre></td><td width=10%></td></tr></table>	
-	<img class="content_sepline" src="../images/sepline.png">	
+	<img class="content_sepline" src="../Images/sepline.png">	
 
 
 	<H2 class="content_h2" id="CodingGlobals">Global Variables and Functions</h2>
@@ -178,7 +178,7 @@ PlayTheSound(SwitchGunSound);
     }
 })();
 	</code></pre></td><td width=10%></td></tr></table>	
-	<img class="content_sepline" src="../images/sepline.png">	
+	<img class="content_sepline" src="../Images/sepline.png">	
 
 	<H2 class="content_h2" id="CodingHKSvsAHK">Hot Key Speak (JScript) vs AutoHotKey (AHK)</h2>
 	<p class="content_p2">There are differences between the JScript Code and AutoHotKey Code. Many will go unnoticed but a few have to be mentioned.<p>
@@ -187,7 +187,7 @@ PlayTheSound(SwitchGunSound);
 	<p class="content_p2">Watch for CASE SENSITIVITY. AHK is not case sensitive while JScript is. Remember this, this is only applicable with function names. Arguments are still case insensitive.</p>
 	<p class="content_p2">Obviously AHK features/methods had to be ported to work under JScript, be advised that some features were not ported, such as functions requiring a callback...</p>
 	<p class="content_p2">Some AutoHotKey commands use keywords such as ON, OFF, and so on and some take defined constants like for keys, like ENTER. You may quote these, like "ON", "ENTER", "{ENTER}" and they will resolve properly.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingAHKFunctionsInJScript">AHK Functions in JScript</h2>
 	<p class="content_p2">Functions in AHK that return a value will be almost identical looking but beware that you MUST call parseInt() or any of the parseFunction() if the return value of the AHK function is not a string. This has to do with the interface between JScript and the AHK original as, mainly, every number in the AHK language is basically a string, hence the reason for the dot (.) operator for concatenating vs the + for adding a value... whereas JScript use + for both features... Note that, if you are just passing values back and forth between AHK functions, you don't need to use parseInt()</p>
@@ -209,7 +209,7 @@ if(Number == 32)
     String += "space";
 }
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingAHKCommandsInJScript">AHK Commands in JScript</h2>
 	<p class="content_p2">As many are aware, a lot of features in AHK come in the form of a command and in the form of a function. None of the AHK features come in command form in JScript. And those commands that did not already come in function form have been wrapped in a function, with pain and misery I might add.</p>
@@ -226,7 +226,7 @@ Send("{ENTER}");
 Sleep(100); //Sleep("100"); //would be the same...
 Send("{LBUTTON}");
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">	
+	<img class="content_sepline" src="../Images/sepline.png">	
 
 	<H2 class="content_h2" id="CodingAHKMultipleOutputArguments">Multiple Output Arguments</h2>
 	<p class="content_p2">Some commands in AutoHotKey are implemented to used multiple output arguments, which allow the command to return multiple pieces of information when executed.</p>
@@ -258,7 +258,7 @@ OutputDebug(ret["OutExtension"]);
 OutputDebug(ret["OutNameNoExt"]);
 OutputDebug(ret["OutDrive"]);
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">	
+	<img class="content_sepline" src="../Images/sepline.png">	
 
 	<H2 class="content_h2" id="CodingAHKSingleArgument">Single Output Argument</h2>
 	<p class="content_p2">Some commands in AutoHotKey are implemented to use an argument as output parameter, which allow the command to return information through the passed variables name in an argument/parameter.</p>
@@ -277,7 +277,7 @@ OutputDebug %OutputVar%
 var ret = Random(0,100);
 OutputDebug(ret);
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingAHKBultInVariablesInJScript">AHK Built-In Variables JScript</h2>
 	<p class="content_p2">Built-In variables support is done via a generic wrapper function that takes the name of the variable as parameter, discussed in more details later</p>
@@ -295,7 +295,7 @@ if(GetBuiltInVar("ErrorLevel") == 5)
     OutputDebug(GetBuiltInVar("ErrorLevel"));
 }
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingRedesignedFunctions">Redesigned Functions</h2>
 	<p class="content_p2">While investigating the functions I wanted to allow calling from JScripts, a few things were found that warranted some tweaks. Some necessary for proper support, some for safer usage.</p>
@@ -568,21 +568,21 @@ StackSendAction("Send('b')");
 	<p class="content_p2">Please Read the Built-In Variable Section on the AutoHotKey site <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Variables.htm#BuiltIn">Here</a>.</p>
 	<p class="content_p2">Note: The function is a blind write, not all variables may be allowed to be set via this function.</p>
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHelperClassed">Helper Classes</h2>
 	<p class="content_p2">Aside the Redesigned Functions mentioned above, HotKeySpeak also extents AutoHotKey with a set of classes that give access to HotKeySpeak inherent features as well as providing features you may find useful.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKSRootClasse">HKS Root Class</h2>
 	<p class="content_p2">The HKS class is the root container class for all HotKeySpeak features.</p>
 	<p class="content_p2">From the HKS class you can access sub classes categorized by feature.</p>
 	<p class="content_p2">This class has no member functions.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Action">HKS.Action Class</h2>
 	<p class="content_p2">The Action class provides access the actions, which are the Commands, the Command Context and other items found in the Application TreeView.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Action.Activate">HKS.Action.Activate Member Function</h2>
 	<pre><code class="JavaScript">HKS.Action.Activate(Str ActionName)</code></pre>
@@ -599,7 +599,7 @@ StackSendAction("Send('b')");
 //Activate the FileMenu Context
 HKS.Action.Activate("FileMenu");
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.Action.Run">HKS.Action.Run Member Function</h2>
 	<pre><code class="JavaScript">HKS.Action.Run(Str ActionName)</code></pre>
@@ -645,11 +645,11 @@ Function MyFavoriteFunction3()
     //some useful code
 }
 	</code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.Debug">HKS.Debug Class</h2>
 	<p class="content_p2">The Debug Class offers functions that will allow you to output information to the debug/console window.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	
 	<H2 class="content_h2" id="CodingHKS.Debug.Breakpoint">HKS.Debug.Breakpoint Member Function</h2>
@@ -688,7 +688,7 @@ Close Console When Done!
 In Function
 >close|
 </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<H2 class="content_h2" id="CodingHKS.Debug.MsgBox">HKS.Debug.MsgBox Member Function</h2>
@@ -701,7 +701,7 @@ var aVariable = 10;
 HKS.Debug.MsgBox("The Variable is " + aVariable);
 //Shows a Message box with "The Variable is 10"
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.Debug.Write">HKS.Debug.Write Member Function</h2>
 	<pre><code class="JavaScript">HKS.Debug.Write(Str Text, Int DebugLevel = 5)</code></pre>
@@ -717,7 +717,7 @@ HKS.Debug.Write(aVariable);
 //The Variable is 10
 //in the console
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.Debug.WriteNL">HKS.Debug.WriteNL Member Function</h2>
 	<pre><code class="JavaScript">HKS.Debug.WriteNL(Str Text = "", Int DebugLevel = 5)</code></pre>
@@ -735,7 +735,7 @@ HKS.Debug.WriteNL(aVariable);
 //10
 //in the console
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.Debug.WriteSP">HKS.Debug.WriteSP Member Function</h2>
 	<pre><code class="JavaScript">HKS.Debug.WriteSP(Str Text = "", Int DebugLevel = 5)</code></pre>
@@ -755,7 +755,7 @@ HKS.Debug.WriteSP(aVariable2);
 //The Variable is 10 The Other Variable is 20
 //in the console
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.Debug.WriteClear">HKS.Debug.WriteClear Member Function</h2>
 	<pre><code class="JavaScript">HKS.Debug.WriteClear(Str Text = "", Int DebugLevel = 5)</code></pre>
@@ -771,7 +771,7 @@ HKS.Debug.WriteClear("The Variable is " + aVariable);
 //The Variable is 10
 //in the console
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Debug.Show">HKS.Debug.Show Member Function</h2>
 	<pre><code class="JavaScript">HKS.Debug.Show()</code></pre>
@@ -783,12 +783,12 @@ HKS.Debug.WriteClear("The Variable is " + aVariable);
 //JScript
 HKS.Debug.Show();
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse">HKS.Mouse Class</h2>
 	<p class="content_p2">The Mouse Class offers functions and sub classes that will allow you to control the mouse.</p>
 	<p class="content_p2">These supplemental classes were added to provide extra support found to be essential especially when trying to add mouse movement for games.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.StartDetect">HKS.Mouse.StartDetect Member Function</h2>
 	<pre><code class="JavaScript">HKS.Mouse.StartDetect()</code></pre>
@@ -805,7 +805,7 @@ HKS.Mouse.StartDetect();
 //Move The Mouse here
 ...
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.StopDetect">HKS.Mouse.StopDetect Member Function</h2>
 	<pre><code class="JavaScript">HKS.Mouse.StopDetect()</code></pre>
@@ -823,7 +823,7 @@ HKS.Mouse.StartDetect();
 //Move The Mouse here
 ...
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">	
+	<img class="content_sepline" src="../Images/sepline.png">	
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.Direct">HKS.Mouse.Direct Class</h2>
 	<p class="content_p2">The Mouse.Direct Class offers functions to move the mouse directly via the hardware.</p>
@@ -831,7 +831,7 @@ HKS.Mouse.StartDetect();
 	<p class="content_p2">For these games you have to send mouse movement through hardware for them to notice.</p>
 	<p class="content_p2">These functions also move the mouse over the window, meaning they are compatible for regular windowed application though it is recommended you use the Mouse.Pix or mouse.UV for those.</p>
 	<p class="content_p2">The Direct functions take Mickeys for movement distance, not Pixels. A mickey is the amount that a mouse has to move for the mouse to report that it has moved.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.Direct.MoveByXYVector">HKS.Mouse.Direct.MoveByXYVector Member Function</h2>
 	<pre><code class="JavaScript">HKS.Mouse.Direct.MoveByXYVector(Int MickeysDX, Int MickeysDY, Int NumMoves)</code></pre>
@@ -861,7 +861,7 @@ Sleep(1000);
 HKS.Mouse.Direct.MoveByXYVector(0, -200/10, 10);
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 		<H2 class="content_h2" id="CodingHKS.Mouse.Direct.MoveInDirection">HKS.Mouse.Direct.MoveInDirection Member Function</h2>
@@ -892,11 +892,11 @@ Sleep(1000);
 HKS.Mouse.Direct.MoveInDirection(90, 200/10, 10);
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.Pix">HKS.Mouse.Pix Class</h2>
 	<p class="content_p2">The Mouse.Pix Class offers functions to move the mouse by pixel value.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveOnScreen">HKS.Mouse.Pix.MoveOnScreen Member Function</h2>
 	<pre><code class="JavaScript">HKS.Mouse.Pix.MoveOnScreen(Int X, Int Y, Int Iterations = 0, Str Relative = "")</code></pre>
@@ -926,7 +926,7 @@ Sleep(1000);
 HKS.Mouse.Pix.MoveOnScreen(0, -200, 100, "Relative");
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveOnWindow">HKS.Mouse.Pix.MoveOnWindow Member Function</h2>
@@ -963,7 +963,7 @@ Sleep(1000);
 HKS.Mouse.Pix.MoveOnWindow(-100, -100, 100);
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 <H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveInDirectionScreen">HKS.Mouse.Pix.MoveInDirectionScreen Member Function</h2>
@@ -994,7 +994,7 @@ Sleep(1000);
 HKS.Mouse.Pix.MoveInDirectionScreen(90, 200, 10);
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 		
 <H2 class="content_h2" id="CodingHKS.Mouse.Pix.MoveInDirectionWindow">HKS.Mouse.Pix.MoveInDirectionWindow Member Function</h2>
 	<pre><code class="JavaScript">HKS.Mouse.Pix.MoveInDirectionWindow(Int Direction, Int Distance, Int Iterations = 1)</code></pre>
@@ -1022,13 +1022,13 @@ HKS.Mouse.Pix.MoveInDirectionWindow(180, 200, 10);
 Sleep(1000);
 
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">		
+	<img class="content_sepline" src="../Images/sepline.png">		
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.UV">HKS.Mouse.UV Class</h2>
 	<p class="content_p2">The Mouse.UV Class offers functions to move the mouse by UV value.</p>
 	<p class="content_p2">UV is a coordinate system use in graphical systems. UV defines a position in percentage form via a 0 through 1 value. 0,0 would be upper left. .5,.5 would be center. 1,1 would be bottom right.</p>
 	<p class="content_p2">Using UV you can be accurate in positioning the mouse on a window regardless of it's size. Or in a game regardless of the resolution it's running at. And so your code can work no matter the resolution chosen.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveOnScreen">HKS.Mouse.UV.MoveOnScreen Member Function</h2>
 	<pre><code class="JavaScript">HKS.Mouse.UV.MoveOnScreen(Float X, Float Y, Int Iterations = 0, Str Relative = "")</code></pre>
@@ -1065,7 +1065,7 @@ Sleep(1000);
 HKS.Mouse.UV.MoveOnScreen(.25, .25, 100);
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveOnWindow">HKS.Mouse.UV.MoveOnWindow Member Function</h2>
@@ -1107,7 +1107,7 @@ Sleep(1000);
 HKS.Mouse.UV.MoveOnWindow(-.25, .25, 100);
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 <H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveInDirectionScreen">HKS.Mouse.UV.MoveInDirectionScreen Member Function</h2>
@@ -1138,7 +1138,7 @@ Sleep(1000);
 HKS.Mouse.UV.MoveInDirectionScreen(90, .5, 10);
 Sleep(1000);
     </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 		
 <H2 class="content_h2" id="CodingHKS.Mouse.UV.MoveInDirectionWindow">HKS.Mouse.UV.MoveInDirectionWindow Member Function</h2>
 	<pre><code class="JavaScript">HKS.Mouse.UV.MoveInDirectionWindow(Int Direction, Float Distance, Int Iterations = 1)</code></pre>
@@ -1168,7 +1168,7 @@ Sleep(1000);
 HKS.Mouse.UV.MoveInDirectionWindow(90, .5, 10);
 Sleep(1000);
 </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">	
+	<img class="content_sepline" src="../Images/sepline.png">	
 	
 	
 	<H2 class="content_h2" id="CodingHKS.Process">HKS.Process Class</h2>
@@ -1304,7 +1304,7 @@ OutputDebug("IsWindowMine:")
 OutputDebug(HKS.Process.IsWindowMine());
 OutputDebug("***********")
 </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 
 	<H2 class="content_h2" id="CodingHKS.Recognition">HKS.Recognition Class</h2>
@@ -1519,7 +1519,7 @@ else
 }
 </code></pre></td><td width=10%></td></tr></table>
 
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 
 	<H2 class="content_h2" id="CodingHKS.Resource">HKS.Resource Class</h2>
@@ -1591,7 +1591,7 @@ PlayTheSound(ReloadSound);
 //In SwitchGun Action
 PlayTheSound(SwitchGunSound);
 </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 
 	
@@ -1691,7 +1691,7 @@ OutputDebug("Now I'll say more and wait")
 HKS.VoiceAgent.SayXMLWait(xmlText);
 OutputDebug("Done!");
 </code></pre></td><td width=10%></td></tr></table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.WinAPI">HKS.WinAPI Class</h2>
 	<p class="content_p2">The WinAPI Class has WinAPI Functions defined that may be useful writing rules.</p>
@@ -1700,11 +1700,11 @@ OutputDebug("Done!");
 	<p class="content_p2">NOTE: Functions that only apply to the calling thread are not included as they will only affect the HotKeySpeak UI.</p>
 	<p class="content_p2">NOTE: Functions that were judged not useful or too complex are not included.</p>
 	<p class="content_p2">The WinAPIs here are split by the same categories as Microsoft Reference Pages which sometimes has functions in odd places.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2" id="CodingHKS.WinAPI.KB">HKS.WinAPI.KB Class</h2>
 	<p class="content_p2">The WinAPI.KB Class has WinAPI functions mostly related to keyboard manipulation.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2">HKS.WinAPI.KB Member Functions</h2>
 	<table class="func_table" width=100%>
@@ -1765,11 +1765,11 @@ OutputDebug("Done!");
 		</td>
 	</tr>
     </table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.WinAPI.Mouse">HKS.WinAPI.Mouse Class</h2>
 	<p class="content_p2">The WinAPI.Mouse Class has WinAPI functions mostly related to mouse functions.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2">HKS.WinAPI.Mouse Member Functions</h2>
 	<table class="func_table" width=100%>
@@ -1838,12 +1838,12 @@ OutputDebug("Done!");
 		</td>
 	</tr>
     </table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2" id="CodingHKS.WinAPI.Win">HKS.WinAPI.Win Class</h2>
 	<p class="content_p2">The WinAPI.Win Class has WinAPI functions mostly related to window manipulation.</p>
 	<p class="content_p2">All the functions require a Window Handle, referred to as a hWnd, such handle is available in the HKS.Process class and some AutoHotKey functions.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2">HKS.WinAPI.Win Member Functions</h2>
 	<table class="func_table" width=100%>
@@ -2229,7 +2229,7 @@ OutputDebug("Done!");
 		</td>
 	</tr>
     </table>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 

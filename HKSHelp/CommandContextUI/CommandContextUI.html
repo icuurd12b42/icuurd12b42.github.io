@@ -8,9 +8,9 @@
 	
 	<H1 class="content_h1" id="Context">Edit Command Context Interface</h1>
 	<p class="content_p1">The Edit Command Context Interface allows you to change the Context Name, the Hot Key, the Spoken Sentence and the Code to run when the context is triggered, as well as enabling or disabling the Command Context.</p>
-	<img class="content_screenshot" src="../images/CommandContextUI.png">
+	<img class="content_screenshot" src="../Images/CommandContextUI.png">
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="ContextHowToUse">How To Use</h2>
 	<p class="content_p2">A Command Context works like a Command Action with the added ability to limit subsequent possible actions to whatever actions are located under it in the tree structure, allowing for a contextual set of options, such as, for example, issuing a <u>Edit</u> command can limit the next options to <u>Copy</u>, <u>Paste</u>, <u>Cut</u> and <u>Undo</u>. </p>
@@ -26,18 +26,18 @@
     <p class="content_p3">Also, addendum to the above mention of the <u>root actions</u>; root usually refers to the root of the tree structure, usually the application branch, but may also refer to a parent branch down the structural hierarchy that is a Window Context. If the Command Context is located under a Window Context, the root is the Window Context.</p>
 	<p class="content_p3">If there are no Actions found under a Command Context, the speech detection will not be added for it in the speech rules.</p>
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<H2 class="content_h2"id="ContextName">Name</h2>
 	<p class="content_p2">Specify the name for the Command Context as it would appear in the tree-view.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="ContextHotKey">Hot Key</h2>
 	<p class="content_p2">Specify the hot key to that will trigger the Command Context.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/RecordOn.ico"> button on the right to activate the keyboard hot key recorder.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/RecordOn.ico"> button on the right to activate the keyboard hot key recorder.</p>
 	<p class="content_p2">The possible Hot Key Combinations are Listed on the AutoHotKey Help Reference Page <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/Hotkeys.htm">Here</a> and <a style="text-decoration:none; color:#89CE46" href="https://autohotkey.com/docs/KeyList.htm">Here</a>.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="ContextSpokenWords">Spoken Words</h2>
 	<p class="content_p2">Specify what words or sentences will trigger the Command Context.</p>
@@ -45,28 +45,28 @@
 	<p class="content_p2">You may define multiple sentences or words for this Context by separating each possible option by the pipe | character, for example <u>Reload|Reload Primary Weapon|Reload Primary</u>.</p>
 	<p class="content_p2">Note that the speed and reliability of the recognition system relies on how you define these spoken commands. It helps to have them easily distinguishable from one another. For Example if you have a Command <u>Fire</u> and you have a similar sounding command like <u>Five</u>, then there is a good chance there will be trouble identifying what has been said between those two choices, resulting in longer processing or error of choice.</p>
 	<p class="content_p2">Another thing to consider is the number of syllables in your sentence or word. Long story short, single syllable words do poorly.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="ContextEnabled">Enabled</h2>
 	<p class="content_p2">Specify if the Command Context is enabled. Disabled Command Context will be ignored by the system and so will any Commands located under it in the tree structure.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 
 	<H2 class="content_h2"id="ContextCode">Code</h2>
 	<p class="content_p2">Specifies the code to run when the Command Context is activated. You can call any function or use any variables defined by the code in the Application Interface, or any of the code that was previously ran by items up the context chain. This is also a good place to reset variables that the actions under this context would need.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
-	<p class="content_p2">Use the <img class="intext_icon" src="../images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/RunCode.ico"> button to execute the code. This is helpful but not always usable depending on the code you are writing. The console window will pop up to handle any send commands. For Testing purpose, you have to manually run the code of all related actions up the chain first If your code box calls a function or uses variables defined in the Application Interface for example, make sure to run that code first.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/editcode.ico"> button to edit the code in an external editor. An external editor such as MS Visual Code or Notepad++ is recommended. The system should automatically update any changes made by the external editor when you save the file. MS Visual Code has an Auto-save Feature that makes this process seamless.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/Ellipsis.ico"> button to set the external editor to the program you want to use.</p>
+	<p class="content_p2">Use the <img class="intext_icon" src="../Images/reload.ico"> button to reload the code from the temporary file the external editor is editing if the automatic update is not working.</p>
 	
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="ContextOK">OK Button</h2>
 	<p class="content_p2">Applies the changes and closes the dialog box. Some changes may require a restart.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	<H2 class="content_h2"id="ContextCancel">Cancel Button</h2>
 	<p class="content_p2">Cancels the changes and closes the dialog box.</p>
-	<img class="content_sepline" src="../images/sepline.png">
+	<img class="content_sepline" src="../Images/sepline.png">
 	
 	
 	<p class="content_p2"/>
