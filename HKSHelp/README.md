@@ -1,3 +1,4 @@
 # HKSHelp
 
-The help system for Hot Key Speak
+The Help System for Hot Key Speak
+Live with github pages
